@@ -217,28 +217,30 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
     } 
     // 没有分期方案时，使用一般现金回馈
     else if (remainingAmount > 0) {
-      const bestCashbackCard = creditCards
-        .filter(card => 
-          card.cashbackRate > 0 &&
-          (card.minTaxAmount === undefined || card.minTaxAmount <= remainingAmount) &&
-          (card.maxTaxAmount === undefined || card.maxTaxAmount >= remainingAmount)
-        )
-        .sort((a, b) => b.cashbackRate - a.cashbackRate)[0];
+      const eligibleCards = creditCards.filter(card => 
+        card.cashbackRate > 0 &&
+        (card.minTaxAmount === undefined || card.minTaxAmount <= taxAmount) &&
+        (card.maxTaxAmount === undefined || card.maxTaxAmount >= taxAmount)
+      );
       
-      if (bestCashbackCard) {
-        // 确保考虑回馈上限
-        const cashbackAmount = Math.min(
-          remainingAmount * bestCashbackCard.cashbackRate,
-          bestCashbackCard.cashbackLimit
-        );
+      if (eligibleCards.length > 0) {
+        const bestCashbackCard = eligibleCards.sort((a, b) => b.cashbackRate - a.cashbackRate)[0];
         
-        remainingStrategy = {
-          type: 'cashback',
-          amount: remainingAmount,
-          cashbackRate: bestCashbackCard.cashbackRate,
-          cashback: cashbackAmount,
-          cardName: bestCashbackCard.name
-        };
+        if (bestCashbackCard) {
+          // 确保考虑回馈上限
+          const cashbackAmount = Math.min(
+            taxAmount * bestCashbackCard.cashbackRate,
+            bestCashbackCard.cashbackLimit
+          );
+          
+          remainingStrategy = {
+            type: 'cashback',
+            amount: remainingAmount,
+            cashbackRate: bestCashbackCard.cashbackRate,
+            cashback: cashbackAmount,
+            cardName: bestCashbackCard.name
+          };
+        }
       }
     }
     
@@ -260,11 +262,28 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
 
   // 渲染普通现金回馈表格
   const renderCashbackTable = () => {
+    // 计算每张卡实际可获得的回馈金额
+    const calculateActualCashback = (card) => {
+      // 考虑税额上限
+      const applicableTaxAmount = Math.min(
+        taxAmount,
+        card.maxTaxAmount || Infinity
+      );
+      
+      // 计算回馈（考虑回馈上限）
+      return Math.min(
+        applicableTaxAmount * card.cashbackRate,
+        card.cashbackLimit || Infinity
+      );
+    };
+    
     const eligibleCards = creditCards.filter(card => 
       card.cashbackRate > 0 &&
-      (card.minTaxAmount === undefined || card.minTaxAmount <= taxAmount) &&
-      (card.maxTaxAmount === undefined || card.maxTaxAmount >= taxAmount)
-    ).sort((a, b) => b.cashbackRate - a.cashbackRate);
+      (card.minTaxAmount === undefined || card.minTaxAmount <= taxAmount)
+    ).sort((a, b) => {
+      // 按实际回馈金额从高到低排序
+      return calculateActualCashback(b) - calculateActualCashback(a);
+    });
 
     if (eligibleCards.length === 0) {
       return (
@@ -293,10 +312,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           </thead>
           <tbody>
             {eligibleCards.map((card, index) => {
-              const cashback = Math.min(
-                taxAmount * card.cashbackRate,
-                card.cashbackLimit || Infinity
-              );
+              const cashback = calculateActualCashback(card);
               
               return (
                 <tr key={card.id} className={index === 0 ? "bg-yellow-50" : ""}>
