@@ -369,7 +369,15 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
               <th className="p-3 text-left border">手續費</th>
               <th className="p-3 text-left border">每月還款</th>
               <th className="p-3 text-left border">最低稅額</th>
-              <th className="p-3 text-left border">年利率 1.5% 收益</th>
+              <th className="p-3 text-left border">
+                年利率 1.5% 收益
+                <span 
+                  className="ml-1 inline-block text-gray-500 cursor-help rounded-full border border-gray-400 w-4 h-4 text-xs text-center"
+                  title="以活存年利率：1.5% 計算，此計算僅為存款端的利息「收益」，並未考慮政府對所得稅分期付款本身是否可能收取額外費用或利息"
+                >
+                  ?
+                </span>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -541,6 +549,12 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                     <p>每月還款: NT$ {(splitStrategy.remainingStrategy.amount / splitStrategy.remainingStrategy.bestOption.months).toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
                     <p className="text-orange-600">
                       APR 1.5% 收益: NT$ {Math.round(aprSavings).toLocaleString()}
+                      <span 
+                        className="ml-1 inline-block text-gray-500 cursor-help rounded-full border border-gray-400 w-3 h-3 text-xs text-center"
+                        title="以活存年利率：1.5% 計算，此計算僅為存款端的利息「收益」，並未考慮政府對所得稅分期付款本身是否可能收取額外費用或利息"
+                      >
+                        ?
+                      </span>
                     </p>
                     {splitStrategy.remainingStrategy.bestOption.specialOffer && (
                       <p className="mt-1 italic">備註: {splitStrategy.remainingStrategy.bestOption.specialOffer}</p>
