@@ -128,8 +128,9 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           // 计算APR 1.5%的收益
           const annualRate = 0.015; // 1.5% 年利率
           const monthlyRate = annualRate / 12; // 月利率
-          const presentValueFactor = 1 / Math.pow(1 + monthlyRate, months);
-          const savingsAmount = amount * (1 - presentValueFactor);
+          
+          // 计算递减余额所产生的总利息 (等额本金)
+          const aprSavings = Math.round((monthlyRate * amount * (months + 1)) / 2);
           
           allOptions.push({
             cardId: card.id,
@@ -138,15 +139,20 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
             handlingFee: option.handlingFee,
             interestRate: option.interestRate,
             minAmount: option.minAmount,
-            aprSavings: Math.round(savingsAmount),
+            aprSavings: aprSavings,
             monthlySaving: calculateMonthlySaving(amount, { ...option, months })
           });
         });
       });
     });
     
-    // 按照APR收益从高到低排序
-    allOptions.sort((a, b) => b.aprSavings - a.aprSavings);
+    // 首先按手续费从低到高排序，然后按APR收益从高到低排序
+    allOptions.sort((a, b) => {
+      if (a.handlingFee !== b.handlingFee) {
+        return a.handlingFee - b.handlingFee;
+      }
+      return b.aprSavings - a.aprSavings;
+    });
     
     return allOptions;
   };
@@ -363,7 +369,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
               <th className="p-3 text-left border">手續費</th>
               <th className="p-3 text-left border">每月還款</th>
               <th className="p-3 text-left border">最低稅額</th>
-              <th className="p-3 text-left border">APR 1.5% 收益</th>
+              <th className="p-3 text-left border">年利率 1.5% 收益</th>
             </tr>
           </thead>
           <tbody>
@@ -467,8 +473,9 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
       
       const annualRate = 0.015; // 1.5% 年利率
       const monthlyRate = annualRate / 12; // 月利率
-      const presentValueFactor = 1 / Math.pow(1 + monthlyRate, months);
-      aprSavings = amount * (1 - presentValueFactor);
+      
+      // 计算递减余额所产生的总利息 (等额本金还款)
+      aprSavings = (monthlyRate * amount * (months + 1)) / 2;
     }
 
     return (
@@ -571,7 +578,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           className={`py-2 px-4 mr-2 font-medium ${viewMode === 'installment' ? 'border-b-2 border-orange-500 text-orange-700' : 'text-gray-600'}`}
           onClick={() => setViewMode('installment')}
         >
-          零利率分期
+          分期零利率
         </button>
         <button
           className={`py-2 px-4 mr-2 font-medium ${viewMode === 'cashback' ? 'border-b-2 border-yellow-500 text-yellow-700' : 'text-gray-600'}`}
