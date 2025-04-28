@@ -1,0 +1,28 @@
+{
+  "name": "tax-creditcard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next build",
+    "deploy": "next build && touch out/.nojekyll && gh-pages -d out"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "2025年度台湾综合所得税信用卡繳納策略分析工具",
+  "dependencies": {
+    "next": "^14.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.17",
+    "gh-pages": "^6.3.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1"
+  }
+}
