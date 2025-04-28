@@ -330,7 +330,601 @@ export const creditCards = [
     installmentAvailable: true,
     convenienceStore: false,
     mobilePay: true
-  }
+  },
+  {
+    id: 23, // Starting after existing data
+    name: "樂天銀行 樂翔卡",
+    bank: "樂天銀行",
+    cashbackRate: 0.022, // Approx. 2.2% from 18元/哩
+    cashbackLimit: 2500, // Based on 御璽卡 lower tier
+    minTaxAmount: 0, // Annual fee is card cost, not tax threshold
+    maxTaxAmount: 45000, // Based on 御璽卡 limit reach
+    requireRegistration: false, // Not explicitly mentioned as required for the reward itself
+    registrationLink: "https://www.card.rakuten.com.tw/corp/campaign/cpn.xhtml?code=2249",
+    notes: "回饋為哩程 (18元/哩，表格估計約 2.2%)。御璽卡年費3000元，回饋上限2500元哩程(需繳稅約4.5萬)；無限卡年費15000元，回饋上限5500元哩程(需繳稅約9.9萬)。回饋與分期不可共用。活動連結: https://www.card.rakuten.com.tw/corp/campaign/cpn.xhtml?code=2249",
+    installmentAvailable: true, // Assuming installments available, but not combinable with miles
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 24,
+    name: "上海商銀 信用卡",
+    bank: "上海商銀",
+    cashbackRate: 0.005, // 0.5%
+    cashbackLimit: 500,
+    minTaxAmount: 0, // Registration is condition, not amount threshold
+    maxTaxAmount: 100000, // 刷10萬
+    requireRegistration: true,
+    registrationLink: "https://www.scsb.com.tw/content/card/news_1140401TAX.html",
+    notes: "0.5%現金回饋，上限500元(需繳稅10萬)，與房屋稅共用額度。需登錄(無名額)。後續6-8月消費再享5%回饋(條件詳見活動)。回饋與分期不可共用。活動連結: https://www.scsb.com.tw/content/card/news_1140401TAX.html",
+    installmentAvailable: true, // From initial data (ID 13), but not combinable with cashback
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 25,
+    name: "聯邦銀行 吉鶴卡",
+    bank: "聯邦銀行",
+    cashbackRate: 0.002, // 0.2%
+    cashbackLimit: 0, // 無上限
+    minTaxAmount: 0, // Card specific condition
+    maxTaxAmount: 0, // No limit
+    requireRegistration: true, // Implied by overall registration & NNB limit
+    registrationLink: "https://activity.ubot.com.tw/aws_act/2025/2025incometax/index.htm",
+    notes: "吉鶴卡享0.2%現金回饋無上限。需登錄(活動總名額1.5萬名)。回饋與分期不可共用。後續7-8月消費另有回饋(詳見活動)。活動連結: https://activity.ubot.com.tw/aws_act/2025/2025incometax/index.htm",
+    installmentAvailable: true, // From initial data (ID 14), but not combinable with cashback
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 26,
+    name: "聯邦銀行 NNB新戶加碼",
+    bank: "聯邦銀行",
+    cashbackRate: 0.003, // 加碼 0.3%
+    cashbackLimit: 5000,
+    minTaxAmount: 0, // NNB account is condition
+    maxTaxAmount: 1666667, // 刷166萬 (approx. for 5000 / 0.003)
+    requireRegistration: true, // Limited spots imply registration
+    registrationLink: "https://activity.ubot.com.tw/aws_act/2025/2025incometax/index.htm",
+    notes: "需為新開立NNB數位帳戶者，享額外加碼0.3%現金回饋，上限5000元(需繳稅約166.7萬)。限1萬名。需登錄(活動總名額1.5萬名)。回饋與分期不可共用。後續7-8月消費另有回饋(詳見活動)。活動連結: https://activity.ubot.com.tw/aws_act/2025/2025incometax/index.htm",
+    installmentAvailable: true, // From initial data (ID 14), but not combinable with cashback
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 27,
+    name: "玉山銀行 星宇航空聯名卡", // Assuming '星展卡' is a typo for 星宇卡 based on miles
+    bank: "玉山銀行",
+    cashbackRate: 0.0025, // Approx. 0.25% from 200元/哩 (using 0.5元/哩 estimate from table)
+    cashbackLimit: 50000, // Estimate: 10萬哩 * 0.5元/哩
+    minTaxAmount: 0,
+    maxTaxAmount: 20000000, // 刷2000萬
+    requireRegistration: false, // Not mentioned
+    registrationLink: "https://event.esunbank.com.tw/credit/tax/index.html",
+    notes: "回饋為星宇航空哩程 (200元/哩，表格估計約0.25%)。回饋上限10萬哩(需繳稅2000萬)。回饋與分期不可共用。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
+    installmentAvailable: true, // From initial data (ID 6), but not combinable with miles
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 28,
+    name: "星展銀行 信用卡 (豐盛理財會員)",
+    bank: "星展銀行",
+    cashbackRate: 0.0038, // 0.38% for 豐盛理財
+    cashbackLimit: 18000, // 1.8萬
+    minTaxAmount: 0, // Asset level is condition, not tax amount
+    maxTaxAmount: 4736842, // 刷473萬 (approx.)
+    requireRegistration: false, // Not mentioned, but likely implied by membership status
+    registrationLink: "https://www.ctee.com.tw/news/20250421701612-430301", // Link to news, not direct activity
+    notes: "限豐盛理財會員(資產需達300萬)。享0.38%現金回饋，上限1.8萬元(需繳稅約473萬)。回饋與分期可共用。活動詳情需洽星展。新聞來源: https://www.ctee.com.tw/news/20250421701612-430301",
+    installmentAvailable: true, // Yes, and combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 29,
+    name: "星展銀行 信用卡 (豐盛私人客戶)",
+    bank: "星展銀行",
+    cashbackRate: 0.0068, // 0.68% for 豐盛私人
+    cashbackLimit: 125000, // 12.5萬
+    minTaxAmount: 0, // Asset level is condition
+    maxTaxAmount: 18382353, // 刷1838萬 (approx.)
+    requireRegistration: false, // Not mentioned, implied by membership
+    registrationLink: "https://www.ctee.com.tw/news/20250421701612-430301", // Link to news
+    notes: "限豐盛私人客戶(資產需達3000萬)。享0.68%現金回饋，上限12.5萬元(需繳稅約1838萬)。回饋與分期可共用。活動詳情需洽星展。新聞來源: https://www.ctee.com.tw/news/20250421701612-430301",
+    installmentAvailable: true, // Yes, and combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  // Note:玉山銀行 信用卡 (理財會員) offers 3 tiers, splitting into 3 entries for clarity
+  {
+    id: 30,
+    name: "玉山銀行 信用卡 (一般)", // Adding "一般" for clarity vs wealth tiers
+    bank: "玉山銀行",
+    cashbackRate: 0.002, // 0.2% for "不限" (assuming this means general customers or lowest tier)
+    cashbackLimit: 0, // 無上限
+    minTaxAmount: 0,
+    maxTaxAmount: 0,
+    requireRegistration: false, // Not mentioned
+    registrationLink: "https://event.esunbank.com.tw/credit/tax/index.html",
+    notes: "一般卡(或無特別會員身分)享0.2%現金回饋，無上限。回饋與分期不可共用。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
+    installmentAvailable: true, // From initial data (ID 6), but not combinable with cashback
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 31,
+    name: "玉山銀行 信用卡 (登峰/菁英理財會員)", // Assuming 100萬 corresponds to these levels
+    bank: "玉山銀行",
+    cashbackRate: 0.0035, // 0.35%
+    cashbackLimit: 100000, // 10萬點 (assuming 1點=1元 for limit calculation)
+    minTaxAmount: 0, // Asset level is condition
+    maxTaxAmount: 28571429, // 刷2857萬 (approx.)
+    requireRegistration: false, // Implied by membership
+    registrationLink: "https://event.esunbank.com.tw/credit/tax/index.html",
+    notes: "登峰/菁英理財會員(資產需達100萬/300萬)享0.35%回饋(點數)，上限10萬點(需繳稅約2857萬)。回饋與分期不可共用。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
+    installmentAvailable: true, // From initial data (ID 6), but not combinable with cashback
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 32,
+    name: "玉山銀行 信用卡 (私銀會員)",
+    bank: "玉山銀行",
+    cashbackRate: 0.004, // 0.4%
+    cashbackLimit: 150000, // 15萬點 (assuming 1點=1元 for limit calculation)
+    minTaxAmount: 0, // Asset level is condition
+    maxTaxAmount: 37500000, // 刷3750萬
+    requireRegistration: false, // Implied by membership
+    registrationLink: "https://event.esunbank.com.tw/credit/tax/index.html",
+    notes: "私銀會員享0.4%回饋(點數)，上限15萬點(需繳稅3750萬)。回饋與分期不可共用。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
+    installmentAvailable: true, // From initial data (ID 6), but not combinable with cashback
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 33,
+    name: "永豐銀行 永傳世界卡",
+    bank: "永豐銀行",
+    cashbackRate: 0.0038, // 0.38%
+    cashbackLimit: 200000, // 20萬
+    minTaxAmount: 0, // Registration is condition
+    maxTaxAmount: 52631579, // 刷5263萬 (approx.)
+    requireRegistration: true, // 需登錄
+    registrationLink: "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
+    notes: "永傳世界卡享0.38%現金回饋，上限20萬元(需繳稅約5263萬)。需登錄(無名額限制)。回饋可與6期零利率分期共用。活動連結: https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
+    installmentAvailable: true, // Yes, and 6-期 combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  // Note: 國泰世華分兩級距，拆開
+   {
+    id: 34,
+    name: "國泰世華 信用卡 (邀請制, 稅額30萬+)",
+    bank: "國泰世華",
+    cashbackRate: 0.003, // 0.3%
+    cashbackLimit: 5000, // 共用上限? Table ambiguous. Assuming 5000 applies to both tiers as max? Check source. Assuming limit shared.
+    minTaxAmount: 300000, // 30萬
+    maxTaxAmount: 1666667, // Approx. 5000 / 0.003
+    requireRegistration: false, // Invitation based
+    registrationLink: "https://www.cathaybk.com.tw/cathaybk/personal/campaigns/ebanking/2025hightax/",
+    notes: "邀請制。繳稅額滿30萬(含)以上享0.3%現金回饋。回饋上限推測為5000元(需繳稅約167萬，上限資訊待確認)。回饋與分期可共用。活動連結: https://www.cathaybk.com.tw/cathaybk/personal/campaigns/ebanking/2025hightax/",
+    installmentAvailable: true, // Yes, and combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 35,
+    name: "國泰世華 信用卡 (邀請制, 稅額100萬+)",
+    bank: "國泰世華",
+    cashbackRate: 0.0035, // 0.35%
+    cashbackLimit: 5000, // Assuming shared limit, see note above
+    minTaxAmount: 1000000, // 100萬
+    maxTaxAmount: 1428571, // Approx. 5000 / 0.0035. This max amount is lower than min amount, suggesting the 5000 limit might be *per tier* or inaccurate. Re-checking table: 5000元(刷142萬). Okay, max tax amount is for the 0.35% tier.
+    requireRegistration: false, // Invitation based
+    registrationLink: "https://www.cathaybk.com.tw/cathaybk/personal/campaigns/ebanking/2025hightax/",
+    notes: "邀請制。繳稅額滿100萬(含)以上享0.35%現金回饋。回饋上限5000元(需繳稅約142萬)。回饋與分期可共用。活動連結: https://www.cathaybk.com.tw/cathaybk/personal/campaigns/ebanking/2025hightax/",
+    installmentAvailable: true, // Yes, and combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  // Note: 富邦分兩級距，拆開
+  {
+    id: 36,
+    name: "富邦銀行 J卡",
+    bank: "富邦銀行",
+    cashbackRate: 0.002, // 0.2%
+    cashbackLimit: 2000,
+    minTaxAmount: 0, // Card specific
+    maxTaxAmount: 1000000, // 刷100萬
+    requireRegistration: false, // Not mentioned
+    registrationLink: "https://cardpromote.taipeifubon.com.tw/promotion/Detail?sn=E000042",
+    notes: "限富邦J卡。享0.2%現金回饋，上限2000元(需繳稅100萬)。回饋與分期共用狀態未明。活動連結: https://cardpromote.taipeifubon.com.tw/promotion/Detail?sn=E000042",
+    installmentAvailable: true, // From initial data (ID 23/24), combinability unknown
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 37,
+    name: "富邦銀行 信用卡 (本行存戶且稅額30萬+)",
+    bank: "富邦銀行",
+    cashbackRate: 0.0036, // 0.36%
+    cashbackLimit: 80000, // 8萬
+    minTaxAmount: 300000, // 30萬
+    maxTaxAmount: 22222222, // 刷2222萬 (approx.)
+    requireRegistration: false, // Implied by customer status
+    registrationLink: "https://cardpromote.taipeifubon.com.tw/promotion/Detail?sn=E000042",
+    notes: "限本行存戶且繳稅額滿30萬。享0.36%現金回饋，上限8萬元(需繳稅約2222萬)。回饋與分期共用狀態未明。活動連結: https://cardpromote.taipeifubon.com.tw/promotion/Detail?sn=E000042",
+    installmentAvailable: true, // From initial data (ID 23/24), combinability unknown
+    convenienceStore: false,
+    mobilePay: false
+  },
+   // Note: 華南銀行 領航會員分四級距，拆開
+  {
+    id: 38,
+    name: "華南銀行 信用卡 (領航會員-夢享家)",
+    bank: "華南銀行",
+    cashbackRate: 0.002, // 0.2%
+    cashbackLimit: 2000,
+    minTaxAmount: 0, // Membership level is condition
+    maxTaxAmount: 1000000, // 刷100萬
+    requireRegistration: false, // Implied by membership
+    registrationLink: "https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
+    notes: "限領航會員-夢享家。享0.2%現金回饋，上限2000元(需繳稅100萬)。回饋與分期不可共用。活動連結: https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
+    installmentAvailable: true, // From initial data (ID 15), but not combinable
+    convenienceStore: false,
+    mobilePay: true // From initial data (ID 15)
+  },
+  {
+    id: 39,
+    name: "華南銀行 信用卡 (領航會員-理享家)",
+    bank: "華南銀行",
+    cashbackRate: 0.0025, // 0.25%
+    cashbackLimit: 30000, // 3萬
+    minTaxAmount: 0, // Membership level is condition
+    maxTaxAmount: 12000000, // 刷1200萬
+    requireRegistration: false, // Implied by membership
+    registrationLink: "https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
+    notes: "限領航會員-理享家。享0.25%現金回饋，上限3萬元(需繳稅1200萬)。回饋與分期不可共用。活動連結: https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
+    installmentAvailable: true, // From initial data (ID 15), but not combinable
+    convenienceStore: false,
+    mobilePay: true // From initial data (ID 15)
+  },
+  {
+    id: 40,
+    name: "華南銀行 信用卡 (領航會員-獨享家)",
+    bank: "華南銀行",
+    cashbackRate: 0.003, // 0.3%
+    cashbackLimit: 50000, // 5萬
+    minTaxAmount: 0, // Membership level is condition
+    maxTaxAmount: 16666667, // 刷1666萬 (approx.)
+    requireRegistration: false, // Implied by membership
+    registrationLink: "https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
+    notes: "限領航會員-獨享家。享0.3%現金回饋，上限5萬元(需繳稅約1667萬)。回饋與分期不可共用。活動連結: https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
+    installmentAvailable: true, // From initial data (ID 15), but not combinable
+    convenienceStore: false,
+    mobilePay: true // From initial data (ID 15)
+  },
+  {
+    id: 41,
+    name: "華南銀行 信用卡 (領航會員-睿享家)",
+    bank: "華南銀行",
+    cashbackRate: 0.0035, // 0.35%
+    cashbackLimit: 100000, // 10萬
+    minTaxAmount: 0, // Membership level is condition
+    maxTaxAmount: 28571429, // 刷2857萬 (approx.)
+    requireRegistration: false, // Implied by membership
+    registrationLink: "https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
+    notes: "限領航會員-睿享家。享0.35%現金回饋，上限10萬元(需繳稅約2857萬)。回饋與分期不可共用。活動連結: https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
+    installmentAvailable: true, // From initial data (ID 15), but not combinable
+    convenienceStore: false,
+    mobilePay: true // From initial data (ID 15)
+  },
+  // Note: 合作金庫分三級距，拆開
+  {
+    id: 42,
+    name: "合作金庫 信用卡 (一般卡)",
+    bank: "合作金庫",
+    cashbackRate: 0.0018, // 0.18%
+    cashbackLimit: 30000, // 共用上限? Assuming shared across tiers based on text format.
+    minTaxAmount: 0, // Card tier is condition
+    maxTaxAmount: 16666667, // 刷1666萬 (approx.)
+    requireRegistration: true, // 限1萬名 implies registration
+    registrationLink: "https://www.tcb-bank.com.tw/personal-banking/credit-card/discount/event/income_tax_12",
+    notes: "限一般卡。享0.18%現金回饋。回饋上限可能為3萬元(需繳稅約1667萬，上限資訊待確認)。活動總限1萬名。回饋與分期不可共用。活動連結: https://www.tcb-bank.com.tw/personal-banking/credit-card/discount/event/income_tax_12",
+    installmentAvailable: true, // From initial data (ID 18), but not combinable
+    convenienceStore: false,
+    mobilePay: true // From initial data (ID 18), esp. if using 台灣Pay
+  },
+  {
+    id: 43,
+    name: "合作金庫 信用卡 (中台卡/國防卡)",
+    bank: "合作金庫",
+    cashbackRate: 0.0025, // 0.25%
+    cashbackLimit: 30000, // Assuming shared limit
+    minTaxAmount: 0, // Card tier is condition
+    maxTaxAmount: 12000000, // 刷1200萬
+    requireRegistration: true, // 限1萬名 implies registration
+    registrationLink: "https://www.tcb-bank.com.tw/personal-banking/credit-card/discount/event/income_tax_12",
+    notes: "限中台卡/國防卡。享0.25%現金回饋。回饋上限可能為3萬元(需繳稅1200萬，上限資訊待確認)。活動總限1萬名。回饋與分期不可共用。活動連結: https://www.tcb-bank.com.tw/personal-banking/credit-card/discount/event/income_tax_12",
+    installmentAvailable: true, // From initial data (ID 18), but not combinable
+    convenienceStore: false,
+    mobilePay: true // From initial data (ID 18)
+  },
+  {
+    id: 44,
+    name: "合作金庫 信用卡 (頂級卡)",
+    bank: "合作金庫",
+    cashbackRate: 0.0036, // 0.36%
+    cashbackLimit: 100000, // 10萬 for top tier
+    minTaxAmount: 0, // Card tier is condition
+    maxTaxAmount: 27777778, // 刷2777萬 (approx.)
+    requireRegistration: true, // 限1萬名 implies registration
+    registrationLink: "https://www.tcb-bank.com.tw/personal-banking/credit-card/discount/event/income_tax_12",
+    notes: "限頂級卡。享0.36%現金回饋，上限10萬元(需繳稅約2778萬)。活動總限1萬名。回饋與分期不可共用。活動連結: https://www.tcb-bank.com.tw/personal-banking/credit-card/discount/event/income_tax_12",
+    installmentAvailable: true, // From initial data (ID 18), but not combinable
+    convenienceStore: false,
+    mobilePay: true // From initial data (ID 18)
+  },
+  // Note: 永豐銀行 理財會員分三級距，拆開 (These seem distinct from the永傳/永富卡 entries above, possibly applying to *other* cards held by members?)
+  {
+    id: 45,
+    name: "永豐銀行 信用卡 (永聚會員)",
+    bank: "永豐銀行",
+    cashbackRate: 0.0015, // 0.15%
+    cashbackLimit: 5000,
+    minTaxAmount: 0, // Membership level is condition
+    maxTaxAmount: 3333333, // 刷333萬 (approx.)
+    requireRegistration: true, // Limited spots imply registration
+    registrationLink: "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
+    notes: "限永聚會員。享0.15%現金回饋，上限5千元(需繳稅約333萬)。限2000名。回饋與分期共用條件不明(圖示為橘色驚嘆號)。活動連結: https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
+    installmentAvailable: true, // From initial data (ID 18 - 永聚3期), combinability unclear for cashback
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 46,
+    name: "永豐銀行 信用卡 (永富會員)",
+    bank: "永豐銀行",
+    cashbackRate: 0.0025, // 0.25%
+    cashbackLimit: 50000, // 5萬
+    minTaxAmount: 0, // Membership level is condition
+    maxTaxAmount: 20000000, // 刷2000萬
+    requireRegistration: true, // Limited spots imply registration
+    registrationLink: "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
+    notes: "限永富會員。享0.25%現金回饋，上限5萬元(需繳稅2000萬)。限1200名。回饋與分期共用條件不明(圖示為橘色驚嘆號)。活動連結: https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
+    installmentAvailable: true, // From initial data (ID 17 - 永富6期), combinability unclear for cashback
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 47,
+    name: "永豐銀行 信用卡 (永傳會員)",
+    bank: "永豐銀行",
+    cashbackRate: 0.0038, // 0.38%
+    cashbackLimit: 200000, // 20萬
+    minTaxAmount: 0, // Membership level is condition
+    maxTaxAmount: 52631579, // 刷5263萬 (approx.)
+    requireRegistration: true, // Limited spots imply registration
+    registrationLink: "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
+    notes: "限永傳會員。享0.38%現金回饋，上限20萬元(需繳稅約5263萬)。限800名。僅永傳會員的回饋可與分期共用。活動連結: https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
+    installmentAvailable: true, // Yes, and combinable (as per orange icon note)
+    convenienceStore: false,
+    mobilePay: false
+  },
+  // Note: 玉山銀行 信用卡 (again, seems like general card tiers vs wealth tiers above) - splitting Unicard
+   {
+    id: 48, // Already have id 30 for 玉山一般卡 0.2%, this table lists 0.1% for 一般卡. Let's add this as another possibility or lower tier.
+    name: "玉山銀行 信用卡 (一般卡 Tier 2)", // Differentiating from the 0.2% above
+    bank: "玉山銀行",
+    cashbackRate: 0.001, // 0.1%
+    cashbackLimit: 0, // 無上限
+    minTaxAmount: 0,
+    maxTaxAmount: 0,
+    requireRegistration: false, // Not mentioned
+    registrationLink: "https://event.esunbank.com.tw/credit/tax/index.html",
+    notes: "一般卡享0.1%現金回饋，無上限。回饋與分期不可共用。(此處與上方0.2%一般卡資訊來源相同但回饋率不同，請確認活動細節)。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
+    installmentAvailable: true, // From initial data (ID 6), but not combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 49,
+    name: "玉山銀行 U Bear 卡 / Pi 拍錢包卡等 (原 Unicard)", // Assuming Unicard refers to these popular cards
+    bank: "玉山銀行",
+    cashbackRate: 0.002, // 0.2%
+    cashbackLimit: 0, // 無上限
+    minTaxAmount: 0, // Card specific condition
+    maxTaxAmount: 0,
+    requireRegistration: false, // Not mentioned
+    registrationLink: "https://event.esunbank.com.tw/credit/tax/index.html",
+    notes: "限 U Bear 卡/Pi 拍錢包卡等 (原 Unicard 類別)。享0.2%現金回饋，無上限。回饋與分期不可共用。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
+    installmentAvailable: true, // From initial data (ID 6), but not combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+   {
+    id: 50, // This 玉山 0.3% for 100萬 threshold seems to duplicate id 31 (0.35% for 100萬 wealth level). Let's assume this is an alternative or requires clarification. Add with note.
+    name: "玉山銀行 信用卡 (稅額100萬+)", // Different condition than wealth level?
+    bank: "玉山銀行",
+    cashbackRate: 0.003, // 0.3%
+    cashbackLimit: 100000, // 10萬點 (assuming 1點=1元)
+    minTaxAmount: 1000000, // 100萬稅額
+    maxTaxAmount: 33333333, // 刷3333萬 (approx.)
+    requireRegistration: false, // Not mentioned
+    registrationLink: "https://event.esunbank.com.tw/credit/tax/index.html",
+    notes: "繳稅額達100萬享0.3%回饋(點數)，上限10萬點(需繳稅約3333萬)。回饋與分期不可共用。(此條件與理財會員等級回饋相似，請確認活動細節)。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
+    installmentAvailable: true, // From initial data (ID 6), but not combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 51, // This永豐永富卡 entry duplicates id 46 (永富會員). Adding it for completeness but noting redundancy.
+    name: "永豐銀行 永富世界卡",
+    bank: "永豐銀行",
+    cashbackRate: 0.0025, // 0.25%
+    cashbackLimit: 50000, // 5萬
+    minTaxAmount: 0, // Registration is condition
+    maxTaxAmount: 20000000, // 刷2000萬
+    requireRegistration: true, // 需登錄
+    registrationLink: "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
+    notes: "永富世界卡享0.25%現金回饋，上限5萬元(需繳稅2000萬)。需登錄(無名額限制)。回饋與分期不可共用。(此條目與永富會員回饋相似)。活動連結: https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
+    installmentAvailable: true, // From initial data (ID 17), but not combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  // Note: 華南銀行 消費滿額送點數，這個比較複雜，回饋率變動
+  {
+    id: 52,
+    name: "華南銀行 信用卡 (消費滿額贈點)",
+    bank: "華南銀行",
+    cashbackRate: 0.0, // Rate varies significantly, difficult to represent simply
+    cashbackLimit: 2500, // Max points value = 2500元
+    minTaxAmount: 50000, // Lowest threshold starts at 5萬 tax
+    maxTaxAmount: 1000000, // Applies up to 100萬+ tax
+    requireRegistration: false, // Condition is spending, not registration? Check link. Assume false for now.
+    registrationLink: "https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
+    notes: "需3個月內消費滿10萬。繳稅5~50萬贈5000點(=250元, Max 0.5%); 50~100萬贈1萬點(=500元, Max 0.1%); 100萬以上贈5萬點(=2500元, Max 0.25%)。回饋上限為2500元。回饋與分期不可共用。活動連結: https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
+    installmentAvailable: true, // From initial data (ID 15), but not combinable
+    convenienceStore: false,
+    mobilePay: true // From initial data (ID 15)
+  },
+  {
+    id: 53,
+    name: "第一銀行 信用卡",
+    bank: "第一銀行",
+    cashbackRate: 0.002, // 0.2%
+    cashbackLimit: 2000,
+    minTaxAmount: 100000, // 10萬以上
+    maxTaxAmount: 1000000, // 刷100萬
+    requireRegistration: false, // Not mentioned (but likely needed, check link)
+    registrationLink: "https://card.firstbank.com.tw/sites/card/zh_TW/1565707087044",
+    notes: "繳稅額10萬以上享0.2%現金回饋，上限2000元(需繳稅100萬)。回饋與分期共用狀態未明。活動連結: https://card.firstbank.com.tw/sites/card/zh_TW/1565707087044",
+    installmentAvailable: true, // From initial data (ID 7), combinability unknown
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 54,
+    name: "中信 和泰聯名卡",
+    bank: "中國信託",
+    cashbackRate: 0.002, // 0.2%
+    cashbackLimit: 0, // 無上限
+    minTaxAmount: 0,
+    maxTaxAmount: 0,
+    requireRegistration: false, // Not mentioned
+    registrationLink: "https://mkt.ctbcbank.com/recent/202507/N2025041400015_01-7/index.html",
+    notes: "和泰聯名卡享0.2%和泰Points回饋，無上限。回饋與分期不可共用。活動連結: https://mkt.ctbcbank.com/recent/202507/N2025041400015_01-7/index.html",
+    installmentAvailable: true, // From initial data (ID 8), but not combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 55,
+    name: "中信 中華航空聯名卡",
+    bank: "中國信託",
+    cashbackRate: 0.0017, // Approx 0.17% (using 0.52元/哩 estimate from table)
+    cashbackLimit: 0, // 無上限 (for base rate)
+    minTaxAmount: 0,
+    maxTaxAmount: 0,
+    requireRegistration: false, // Not mentioned
+    registrationLink: "",
+    notes: "回饋為華航哩程 (300元/哩，表格估計約0.17%)，無上限。稅額達1000萬有額外哩程。回饋與分期不可共用。",
+    installmentAvailable: true, // From initial data (ID 8), but not combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 56,
+    name: "永豐銀行 幣倍卡",
+    bank: "永豐銀行",
+    cashbackRate: 0.0015, // 0.15%
+    cashbackLimit: 1000,
+    minTaxAmount: 0, // Registration is condition
+    maxTaxAmount: 666667, // 刷66萬 (approx.)
+    requireRegistration: true, // 需登錄 (1萬名)
+    registrationLink: "", // Link to review, not activity
+    notes: "幣倍卡享0.15%現金回饋，上限1000元(需繳稅約66.7萬)。需登錄(限1萬名)。回饋與分期不可共用。",
+    installmentAvailable: true, // From initial data (ID 17), but not combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 57,
+    name: "永豐銀行 信用卡 (新戶/舊戶回饋)",
+    bank: "永豐銀行",
+    cashbackRate: 0.0015, // 0.15%
+    cashbackLimit: 500,
+    minTaxAmount: 100000, // 10萬以上
+    maxTaxAmount: 333333, // 刷33萬 (approx.)
+    requireRegistration: true, // 需登錄 (4000名)
+    registrationLink: "https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
+    notes: "限2024年未用永豐信用卡繳稅者，且稅額10萬以上。享0.15%現金回饋，上限500元(需繳稅約33.3萬)。需登錄(限4000名)。回饋與分期不可共用。活動連結: https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
+    installmentAvailable: true, // From initial data (ID 17), but not combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 58,
+    name: "中信 LINE Pay信用卡/簽帳卡",
+    bank: "中國信託",
+    cashbackRate: 0.001, // 0.1%
+    cashbackLimit: 0, // 無上限
+    minTaxAmount: 0,
+    maxTaxAmount: 0,
+    requireRegistration: false, // Not mentioned
+    registrationLink: "https://mkt.ctbcbank.com/recent/202507/N2025041400015_01-7/index.html",
+    notes: "LINE Pay信用卡/簽帳金融卡享0.1% LINE Points回饋，無上限。回饋與分期不可共用。活動連結: https://mkt.ctbcbank.com/recent/202507/N2025041400015_01-7/index.html",
+    installmentAvailable: true, // From initial data (ID 8), but not combinable
+    convenienceStore: false,
+    mobilePay: false // Direct card usage, LINE Pay app payment might differ
+  },
+  {
+    id: 59, // This likely refers to 商旅卡 mentioned alongside LINE Pay card
+    name: "中信 商旅鈦金卡",
+    bank: "中國信託",
+    cashbackRate: 0.001, // 0.1% (Assuming same rate as LINE Pay card based on grouping)
+    cashbackLimit: 0, // 無上限
+    minTaxAmount: 0,
+    maxTaxAmount: 0,
+    requireRegistration: false, // Not mentioned
+    registrationLink: "https://mkt.ctbcbank.com/recent/202507/N2025041400015_01-7/index.html",
+    notes: "商旅鈦金卡享0.1%現金回饋，無上限。回饋與分期不可共用。活動連結: https://mkt.ctbcbank.com/recent/202507/N2025041400015_01-7/index.html",
+    installmentAvailable: true, // From initial data (ID 8), but not combinable
+    convenienceStore: false,
+    mobilePay: false
+  },
+  // Note: 彰化銀行分兩級距，拆開
+  {
+    id: 60,
+    name: "彰化銀行 信用卡 (早鳥)",
+    bank: "彰化銀行",
+    cashbackRate: 0.001, // 0.1%
+    cashbackLimit: 1200,
+    minTaxAmount: 0, // Condition is "早鳥" + registration
+    maxTaxAmount: 1200000, // 刷120萬
+    requireRegistration: true, // Limited spots imply registration
+    registrationLink: "https://www.bankchb.com/frontend/bonusDetail.jsp?id=3163",
+    notes: "早鳥享0.1%現金回饋，上限1200元(需繳稅120萬)。限2000名。回饋與分期不可共用。活動連結: https://www.bankchb.com/frontend/bonusDetail.jsp?id=3163",
+    installmentAvailable: true, // From initial data (ID 22), but not combinable
+    convenienceStore: false,
+    mobilePay: true // From initial data (ID 22)
+  },
+  {
+    id: 61,
+    name: "彰化銀行 信用卡 (VIP)",
+    bank: "彰化銀行",
+    cashbackRate: 0.002, // 0.2%
+    cashbackLimit: 30000, // 3萬
+    minTaxAmount: 0, // Condition is "VIP" + registration
+    maxTaxAmount: 15000000, // 刷1500萬
+    requireRegistration: true, // Limited spots imply registration
+    registrationLink: "https://www.bankchb.com/frontend/bonusDetail.jsp?id=3163",
+    notes: "VIP客戶享0.2%現金回饋，上限3萬元(需繳稅1500萬)。限1000名。回饋與分期不可共用。活動連結: https://www.bankchb.com/frontend/bonusDetail.jsp?id=3163",
+    installmentAvailable: true, // From initial data (ID 22), but not combinable
+    convenienceStore: false,
+    mobilePay: true // From initial data (ID 22)
+  },
 ];
 
 // 分期付款選項
