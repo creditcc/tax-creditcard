@@ -386,7 +386,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
     if (optimalCombination.length === 0) {
       return (
         <div className="p-4 bg-gray-50 rounded">
-          <p className="text-gray-500">沒有符合條件的便利商店回饋信用卡。</p>
+          <p className="text-gray-500">沒有符合條件的超商回饋信用卡。</p>
         </div>
       );
     }
@@ -397,7 +397,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           <thead>
             <tr className="bg-gray-100">
               <th className="p-3 text-left border">信用卡</th>
-              <th className="p-3 text-left border">便利商店</th>
+              <th className="p-3 text-left border">超商</th>
               <th className="p-3 text-left border">回饋率</th>
               <th className="p-3 text-left border">建議刷卡金額</th>
               <th className="p-3 text-left border">可獲回饋</th>
@@ -426,7 +426,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           <p>總回饋金額: NT$ {optimalCombination.reduce((sum, card) => sum + card.cashback, 0).toLocaleString()}</p>
         </div>
         <div className="mt-1 text-sm text-gray-600">
-          <p className="text-yellow-600">提醒：便利商店每筆繳納上限為NT$ 30,000，建議使用不同信用卡拆單繳納，每張卡只能獲得一次回饋。</p>
+          <p className="text-yellow-600">提醒：超商每筆繳納上限為NT$ 30,000，建議使用不同信用卡拆單繳納，每張卡只能獲得一次回饋。</p>
         </div>
       </div>
     );
@@ -462,13 +462,13 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
         </h4>
         
         <div className="mb-4">
-          <h5 className="font-medium mb-1">第一步: 便利商店繳納 - 使用不同信用卡拆單繳納（最多5張卡，每筆上限NT$ 30,000）</h5>
+          <h5 className="font-medium mb-1">第一步: 超商繳費 - 使用不同信用卡拆單繳納（最多5張卡，每筆上限NT$ 30,000）</h5>
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-gray-100">
                   <th className="p-2 text-left border">信用卡</th>
-                  <th className="p-2 text-left border">便利商店</th>
+                  <th className="p-2 text-left border">銀行</th>
                   <th className="p-2 text-left border">回饋率</th>
                   <th className="p-2 text-left border">建議刷卡金額</th>
                   <th className="p-2 text-left border">可獲回饋</th>
@@ -490,7 +490,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
             </table>
           </div>
           <div className="mt-1 text-sm text-gray-600">
-            <p>便利商店繳納金額: NT$ {splitStrategy.convenienceTotal.toLocaleString()} | 回饋: NT$ {splitStrategy.convenienceCashback.toLocaleString()}</p>
+            <p>超商繳納金額: NT$ {splitStrategy.convenienceTotal.toLocaleString()} | 回饋: NT$ {splitStrategy.convenienceCashback.toLocaleString()}</p>
           </div>
         </div>
 
@@ -549,7 +549,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           className={`py-2 px-4 mr-2 font-medium ${viewMode === 'convenience' ? 'border-b-2 border-green-500 text-green-700' : 'text-gray-600'}`}
           onClick={() => setViewMode('convenience')}
         >
-          便利商店方案
+          超商繳費
         </button>
         <button
           className={`py-2 px-4 mr-2 font-medium ${viewMode === 'installment' ? 'border-b-2 border-orange-500 text-orange-700' : 'text-gray-600'}`}
@@ -567,7 +567,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
       
       {viewMode === 'convenience' && (
         <div className="mb-4">
-          <h4 className="font-medium mb-2">便利商店繳稅最佳選擇</h4>
+          <h4 className="font-medium mb-2">超商繳費最佳選擇</h4>
           {renderConvenienceTable()}
         </div>
       )}

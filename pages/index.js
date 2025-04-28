@@ -37,7 +37,7 @@ export default function Home() {
           card.installmentAvailable
         );
       } 
-      // 对于便利商店方案，只考虑不超过最高金额限制的超商卡
+      // 对于超商方案，只考虑不超过最高金额限制的超商卡
       else if (strategy === 'convenience') {
         eligibleCards = creditCards.filter(card => 
           card.convenienceStore
@@ -111,7 +111,7 @@ export default function Home() {
             <ul className="list-disc list-inside text-orange-700 space-y-1">
               <li>專家建議：優先選擇手續費低或免手續費的分期方案</li>
               <li>期數建議：選擇最長期限（12期）可以獲得最大的資金時間價值</li>
-              <li>可考慮搭配：將部分金額通過便利商店繳納獲得回饋</li>
+              <li>可考慮搭配：將部分金額通過超商繳費獲得回饋</li>
             </ul>
           </div>
         );
@@ -119,14 +119,14 @@ export default function Home() {
       case 'convenience':
         return (
           <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 mb-6">
-            <h3 className="text-xl font-bold text-green-800 mb-2">小額稅款首選便利商店繳稅</h3>
+            <h3 className="text-xl font-bold text-green-800 mb-2">小額稅款首選超商繳費</h3>
             <p className="mb-2">
-              您的稅額為 NT$ {taxAmount.toLocaleString()}，便利商店繳稅是您的最佳選擇，
-              部分信用卡在便利商店繳費可享最高26%回饋。
+              您的稅額為 NT$ {taxAmount.toLocaleString()}，超商繳費是您的最佳選擇，
+              部分信用卡在超商繳費可享最高6%回饋。
             </p>
             <ul className="list-disc list-inside text-green-700 space-y-1">
-              <li>專家建議：優先選擇回饋率高的便利商店信用卡</li>
-              <li>注意事項：部分便利商店每筆繳費上限為NT$ 30,000</li>
+              <li>專家建議：優先選擇回饋率高的超商信用卡</li>
+              <li>注意事項：部分超商每筆繳費上限為NT$ 30,000</li>
               <li>注意事項：大部分信用卡超商回饋有上限，建議使用最佳組合方案</li>
             </ul>
           </div>
@@ -165,7 +165,7 @@ export default function Home() {
     <Layout>
       <Head>
         <title>2025綜所稅信用卡最佳繳納方案 - 稅款計算與回饋比較</title>
-        <meta name="description" content="計算2025綜所稅最佳信用卡繳納方案，比較各銀行卡片回饋、零利率分期與便利商店繳稅選項，為您節省最多稅金支出。" />
+        <meta name="description" content="計算2025綜所稅最佳信用卡繳納方案，比較各銀行卡片回饋、零利率分期與超商繳費選項，為您節省最多稅金支出。" />
       </Head>
 
       <section className="mb-10">
@@ -173,7 +173,7 @@ export default function Home() {
           <h1 className="text-3xl md:text-4xl font-bold mb-4">2025綜所稅信用卡最佳繳納策略</h1>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             輸入您的稅額，我們會為您計算最佳的繳納組合方案，
-            包括零利率分期、便利商店繳納及現金回饋比較，助您節省支出。
+            包括零利率分期、超商繳費及現金回饋比較，助您節省支出。
           </p>
         </div>
 
@@ -206,7 +206,7 @@ export default function Home() {
             使用信用卡繳稅可享有現金回饋、零利率分期或積點回饋等優惠，但需注意各卡片的回饋上限和適用條件。
           </p>
           <p>
-            <strong>便利商店繳稅：</strong>
+            <strong>超商繳費：</strong>
             在7-11、全家、萊爾富、OK等四大超商均可使用信用卡繳稅，單筆上限為NT$ 30,000。若稅額超過，可拆分多張繳款單。
           </p>
           <p>

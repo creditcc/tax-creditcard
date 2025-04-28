@@ -925,6 +925,21 @@ export const creditCards = [
     convenienceStore: false,
     mobilePay: true // From initial data (ID 22)
   },
+  {
+    id: 23, // Starting after existing data
+    name: "樂天銀行 無限卡",
+    bank: "樂天銀行",
+    cashbackRate: 0.022, 
+    cashbackLimit: 5500, 
+    minTaxAmount: 0, 
+    maxTaxAmount: 99000, 
+    requireRegistration: false, // Not explicitly mentioned as required for the reward itself
+    registrationLink: "https://www.card.rakuten.com.tw/corp/campaign/cpn.xhtml?code=2249",
+    notes: "回饋為哩程 (18元/哩，表格估計約 2.2%)。御璽卡年費3000元，回饋上限2500元哩程(需繳稅約4.5萬)；無限卡年費15000元，回饋上限5500元哩程(需繳稅約9.9萬)。回饋與分期不可共用。活動連結: https://www.card.rakuten.com.tw/corp/campaign/cpn.xhtml?code=2249",
+    installmentAvailable: true, // Assuming installments available, but not combinable with miles
+    convenienceStore: false,
+    mobilePay: false
+  },
 ];
 
 // 分期付款選項
@@ -1191,7 +1206,7 @@ export const installmentOptions = [
   }
 ];
 
-// 便利商店繳稅選項
+// 超商繳費
 export const convenienceStoreOptions = [
   {
     id: 1,

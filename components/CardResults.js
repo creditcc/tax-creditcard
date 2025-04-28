@@ -68,11 +68,11 @@ const CardResults = ({ cards, taxAmount, strategy }) => {
   const getRecommendationTitle = () => {
     switch (strategy) {
       case 'split':
-        return '拆單組合方案 - 優先便利商店高回饋，剩餘金額使用分期卡';
+        return '拆單組合方案 - 優先超商繳費高回饋，剩餘金額使用分期卡';
       case 'multiple':
         return '拆單繳稅推薦卡片 - 最多可拆5次超商繳納';
       case 'convenience':
-        return '便利商店繳稅推薦卡片 - 高回饋';
+        return '超商繳稅推薦卡片 - 高回饋';
       case 'installment':
         return '分期繳稅推薦卡片 - 零利率';
       default:
