@@ -147,7 +147,7 @@ export const creditCards = [
     requireRegistration: false,
     registrationLink: "https://www.fubon.com/",
     notes: "主要針對房屋稅，所得稅適用性待確認，需在7-11使用OPEN錢包支付，回饋期限至2025/6/30",
-    installmentAvailable: false,
+    installmentAvailable: true,
     convenienceStore: true,
     mobilePay: false
   },
@@ -161,10 +161,175 @@ export const creditCards = [
     maxTaxAmount: 1000, // FamiPay單筆上限1000元
     requireRegistration: true,
     registrationLink: "https://www.skbank.com.tw/",
-    notes: "需登錄，每季限3,500名，需在全家使用FamiPay支付，回饋為等值禮券，回饋期限至2025/6/30",
-    installmentAvailable: false,
+    notes: "需登錄，每季限3,500名，需在全家使用FamiPay支付，需季消費滿5000元，回饋為等值禮券，回饋期限至2025/6/30",
+    installmentAvailable: true,
     convenienceStore: true,
     mobilePay: false
+  },
+  {
+    id: 12,
+    name: "土地銀行信用卡",
+    bank: "土地銀行",
+    cashbackRate: 0.0,
+    cashbackLimit: 0,
+    minTaxAmount: 0,
+    maxTaxAmount: 0,
+    requireRegistration: true,
+    registrationLink: "https://www.landbank.com.tw/",
+    notes: "可享3/6/9期零利率，無最低門檻限制",
+    installmentAvailable: true,
+    convenienceStore: false,
+    mobilePay: true
+  },
+  {
+    id: 13,
+    name: "上海商銀信用卡",
+    bank: "上海商銀",
+    cashbackRate: 0.0,
+    cashbackLimit: 0,
+    minTaxAmount: 30000,
+    maxTaxAmount: 5000000,
+    requireRegistration: true,
+    registrationLink: "https://www.scsb.com.tw/",
+    notes: "可享3/6/12期零利率，適用金額3萬~500萬",
+    installmentAvailable: true,
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 14,
+    name: "聯邦銀行信用卡",
+    bank: "聯邦銀行",
+    cashbackRate: 0.0,
+    cashbackLimit: 0,
+    minTaxAmount: 6000,
+    maxTaxAmount: 0,
+    requireRegistration: true,
+    registrationLink: "https://www.ubot.com.tw/",
+    notes: "可享3/6期零利率(稅額6千起)，及12期零利率(稅額6萬起)",
+    installmentAvailable: true,
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 15,
+    name: "華南銀行信用卡",
+    bank: "華南銀行",
+    cashbackRate: 0.0,
+    cashbackLimit: 0,
+    minTaxAmount: 0,
+    maxTaxAmount: 0,
+    requireRegistration: true,
+    registrationLink: "https://www.hncb.com.tw/",
+    notes: "領航會員或2025年信用卡新戶可享6/12期零利率，領航會員需300萬資產",
+    installmentAvailable: true,
+    convenienceStore: false,
+    mobilePay: true
+  },
+  {
+    id: 16,
+    name: "台灣企銀信用卡",
+    bank: "台灣企銀",
+    cashbackRate: 0.0,
+    cashbackLimit: 0,
+    minTaxAmount: 3000,
+    maxTaxAmount: 0,
+    requireRegistration: true,
+    registrationLink: "https://www.tbb.com.tw/",
+    notes: "可享3/6期零利率，透過台灣Pay可享9期零利率，最低門檻3000元",
+    installmentAvailable: true,
+    convenienceStore: false,
+    mobilePay: true
+  },
+  {
+    id: 17,
+    name: "永豐銀行信用卡",
+    bank: "永豐銀行",
+    cashbackRate: 0.0,
+    cashbackLimit: 0,
+    minTaxAmount: 0,
+    maxTaxAmount: 0,
+    requireRegistration: true,
+    registrationLink: "https://bank.sinopac.com/",
+    notes: "永傳/永富世界卡可享6期零利率，財富管理客戶可享額外優惠",
+    installmentAvailable: true,
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 18,
+    name: "合作金庫信用卡",
+    bank: "合作金庫",
+    cashbackRate: 0.0,
+    cashbackLimit: 0,
+    minTaxAmount: 3000,
+    maxTaxAmount: 0,
+    requireRegistration: true,
+    registrationLink: "https://www.tcb-bank.com.tw/",
+    notes: "可享3/6期零利率，需透過台灣Pay支付，最低門檻3000元",
+    installmentAvailable: true,
+    convenienceStore: false,
+    mobilePay: true
+  },
+  {
+    id: 19,
+    name: "國泰世華信用卡",
+    bank: "國泰世華",
+    cashbackRate: 0.0,
+    cashbackLimit: 0,
+    minTaxAmount: 3000,
+    maxTaxAmount: 0,
+    requireRegistration: true,
+    registrationLink: "https://www.cathaybk.com.tw/",
+    notes: "可享3/6期零利率，回饋為邀請制，最低門檻3000元",
+    installmentAvailable: true,
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 20,
+    name: "陽信銀行信用卡",
+    bank: "陽信銀行",
+    cashbackRate: 0.0,
+    cashbackLimit: 0,
+    minTaxAmount: 3000,
+    maxTaxAmount: 0,
+    requireRegistration: true,
+    registrationLink: "https://www.sunnybank.com.tw/",
+    notes: "可享3/6期零利率，最低門檻3000元",
+    installmentAvailable: true,
+    convenienceStore: false,
+    mobilePay: false
+  },
+  {
+    id: 21,
+    name: "兆豐銀行信用卡",
+    bank: "兆豐銀行",
+    cashbackRate: 0.0,
+    cashbackLimit: 0,
+    minTaxAmount: 0,
+    maxTaxAmount: 0,
+    requireRegistration: true,
+    registrationLink: "https://www.megabank.com.tw/",
+    notes: "可享3期零利率，可透過台灣Pay支付，無金額限制",
+    installmentAvailable: true,
+    convenienceStore: false,
+    mobilePay: true
+  },
+  {
+    id: 22,
+    name: "彰化銀行信用卡",
+    bank: "彰化銀行",
+    cashbackRate: 0.0,
+    cashbackLimit: 0,
+    minTaxAmount: 3000,
+    maxTaxAmount: 0,
+    requireRegistration: true,
+    registrationLink: "https://www.bankchb.com/",
+    notes: "可享3期零利率，可透過台灣Pay支付，最低門檻3000元",
+    installmentAvailable: true,
+    convenienceStore: false,
+    mobilePay: true
   }
 ];
 
@@ -174,27 +339,27 @@ export const installmentOptions = [
     id: 1,
     bank: "星展銀行",
     cards: ["全卡別"],
-    periods: [12],
+    periods: [6],
     interestRate: 0, // 0%利率
     handlingFee: 0, // 0手續費
-    minAmount: 1000000,
+    minAmount: 500000,
     specialOffer: "需登錄活動 (2025/5/6-7/3)，透過Paytax/電話繳納，排除臨調/超額/預繳"
   },
   {
     id: 2,
     bank: "星展銀行",
     cards: ["全卡別"],
-    periods: [6],
+    periods: [12],
     interestRate: 0,
     handlingFee: 0,
-    minAmount: 500000,
+    minAmount: 1000000,
     specialOffer: "需登錄活動 (2025/5/6-7/3)，透過Paytax/電話繳納，排除臨調/超額/預繳"
   },
   {
     id: 3,
     bank: "滙豐銀行",
-    cards: ["全卡別"],
-    periods: [9],
+    cards: ["全卡別 (卓越理財貴賓)"],
+    periods: [3, 6, 9],
     interestRate: 0,
     handlingFee: 0,
     minAmount: 1000,
@@ -202,43 +367,233 @@ export const installmentOptions = [
   },
   {
     id: 4,
-    bank: "台新銀行",
+    bank: "土地銀行",
     cards: ["全卡別"],
-    periods: [6],
+    periods: [3, 6, 9],
     interestRate: 0,
     handlingFee: 0,
-    minAmount: 0, // 無最低稅額限制
-    specialOffer: "需登錄活動 (2025/4/28-7/5)，透過Paytax/電話繳納，超商/行動支付/臨櫃不適用"
+    minAmount: 0,
+    specialOffer: "無門檻限制"
   },
   {
     id: 5,
+    bank: "上海商銀",
+    cards: ["全卡別"],
+    periods: [3, 6, 12],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 30000,
+    specialOffer: "適用金額3萬~500萬"
+  },
+  {
+    id: 6,
+    bank: "聯邦銀行",
+    cards: ["全卡別"],
+    periods: [3, 6],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 6000,
+    specialOffer: "最低門檻6000元"
+  },
+  {
+    id: 7,
+    bank: "聯邦銀行",
+    cards: ["全卡別"],
+    periods: [12],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 60000,
+    specialOffer: "最低門檻6萬元"
+  },
+  {
+    id: 8,
+    bank: "華南銀行",
+    cards: ["領航會員或2025年信用卡新戶"],
+    periods: [6, 12],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 0,
+    specialOffer: "領航會員需300萬資產，無金額限制"
+  },
+  {
+    id: 9,
+    bank: "華南銀行",
+    cards: ["全卡別 + 華銀支付"],
+    periods: [6],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 0,
+    specialOffer: "需透過台灣Pay支付"
+  },
+  {
+    id: 10,
+    bank: "台灣企銀",
+    cards: ["全卡別"],
+    periods: [3, 6],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 3000,
+    specialOffer: "最低門檻3000元"
+  },
+  {
+    id: 11,
+    bank: "台灣企銀",
+    cards: ["全卡別 + 台灣Pay"],
+    periods: [9],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 3000,
+    specialOffer: "9期零利率需用台灣Pay，最低門檻3000元"
+  },
+  {
+    id: 12,
     bank: "玉山銀行",
     cards: ["全卡別"],
     periods: [6],
     interestRate: 0,
     handlingFee: 0,
-    minAmount: 0, // 無最低稅額限制
-    specialOffer: "需登錄活動 (需於2025/7/3前)，透過Paytax/玉山Wallet繳納，悠遊付不適用，回饋與分期二選一"
+    minAmount: 0,
+    specialOffer: "理財會員可享回饋與分期共用"
   },
   {
-    id: 6,
+    id: 13,
+    bank: "中國信託",
+    cards: ["全卡別"],
+    periods: [3, 6],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 0,
+    specialOffer: "無金額限制"
+  },
+  {
+    id: 14,
+    bank: "新光銀行",
+    cards: ["全卡別", "含鼎鑽財富無限卡"],
+    periods: [3, 6],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 0,
+    specialOffer: "無金額限制"
+  },
+  {
+    id: 15,
+    bank: "永豐銀行",
+    cards: ["永傳/永富世界卡"],
+    periods: [6],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 0,
+    specialOffer: "僅永傳卡有回饋共用"
+  },
+  {
+    id: 16,
+    bank: "永豐銀行",
+    cards: ["永傳 (財富管理)"],
+    periods: [6],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 0,
+    specialOffer: "限800名，僅永傳卡有回饋共用"
+  },
+  {
+    id: 17,
+    bank: "永豐銀行",
+    cards: ["永富 (財富管理)"],
+    periods: [6],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 0,
+    specialOffer: "限600名"
+  },
+  {
+    id: 18,
+    bank: "永豐銀行",
+    cards: ["永聚 (財富管理)"],
+    periods: [3],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 0,
+    specialOffer: "限800名"
+  },
+  {
+    id: 19,
+    bank: "合作金庫",
+    cards: ["全卡別"],
+    periods: [3, 6],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 3000,
+    specialOffer: "需透過台灣Pay支付，最低門檻3000元"
+  },
+  {
+    id: 20,
+    bank: "國泰世華",
+    cards: ["全卡別"],
+    periods: [3, 6],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 3000,
+    specialOffer: "回饋為邀請制，最低門檻3000元"
+  },
+  {
+    id: 21,
+    bank: "陽信銀行",
+    cards: ["全卡別"],
+    periods: [3, 6],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 3000,
+    specialOffer: "最低門檻3000元"
+  },
+  {
+    id: 22,
     bank: "第一銀行",
     cards: ["全卡別"],
-    periods: [6],
+    periods: [3, 6],
     interestRate: 0,
     handlingFee: 0,
     minAmount: 10000,
-    specialOffer: "需登錄活動 (2025/5/1-7/3)，透過Paytax/電話繳納，公務機關平台不適用，回饋與分期二選一"
+    specialOffer: "最低門檻10000元"
   },
   {
-    id: 7,
-    bank: "中國信託",
+    id: 23,
+    bank: "富邦銀行",
     cards: ["全卡別"],
+    periods: [3],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 0,
+    specialOffer: "無金額限制"
+  },
+  {
+    id: 24,
+    bank: "富邦銀行",
+    cards: ["全卡別 (存戶)"],
     periods: [6],
     interestRate: 0,
     handlingFee: 0,
-    minAmount: 0, // 無最低稅額限制
-    specialOffer: "需登錄活動，透過Paytax/電話繳納，回饋與分期二選一"
+    minAmount: 300000,
+    specialOffer: "需為存戶，最低門檻30萬元"
+  },
+  {
+    id: 25,
+    bank: "兆豐銀行",
+    cards: ["全卡別"],
+    periods: [3],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 0,
+    specialOffer: "可透過台灣Pay支付，無金額限制"
+  },
+  {
+    id: 26,
+    bank: "彰化銀行",
+    cards: ["全卡別"],
+    periods: [3],
+    interestRate: 0,
+    handlingFee: 0,
+    minAmount: 3000,
+    specialOffer: "可透過台灣Pay支付，最低門檻3000元"
   }
 ];
 
@@ -251,7 +606,8 @@ export const convenienceStoreOptions = [
     cashbackRate: 0.06, // 6%
     cashbackLimit: 200, // 最高回饋200點 (每月)
     maxAmount: 3333, // 每月最高可回饋的金額
-    notes: "需每月領券 (Richart Life App)，適用7-11/全家，回饋期限至2025/5/31"
+    notes: "需每月領券 (Richart Life App)，適用7-11/全家，回饋期限至2025/5/31",
+    chains: ["7-11", "family"]
   },
   {
     id: 2,
@@ -260,7 +616,8 @@ export const convenienceStoreOptions = [
     cashbackRate: 0.26, // 6% + 20% = 26%
     cashbackLimit: 2000, // 新戶加碼上限2000點
     maxAmount: 10000, // 可繳10000元獲得最高回饋
-    notes: "需為新戶 (6個月內無台新卡)，需於5/31前申辦，並使用指定支付工具繳稅，回饋期限為核卡後90天"
+    notes: "需為新戶 (6個月內無台新卡)，需於5/31前申辦，並使用指定支付工具繳稅，回饋期限為核卡後90天",
+    chains: ["7-11", "family"]
   },
   {
     id: 3,
@@ -269,7 +626,8 @@ export const convenienceStoreOptions = [
     cashbackRate: 0.03, // 3%
     cashbackLimit: 300, // 每月上限300點
     maxAmount: 10000, // icash單筆/儲值上限10000元
-    notes: "可能限員工申請，需使用icash 2.0自動加值在7-11繳稅，需月消費滿3000元，回饋期限至2025/12/31"
+    notes: "可能限員工申請，需使用icash 2.0自動加值在7-11繳稅，需月消費滿3000元，回饋期限至2025/12/31",
+    chains: ["7-11"]
   },
   {
     id: 4,
@@ -278,7 +636,8 @@ export const convenienceStoreOptions = [
     cashbackRate: 0.02, // 2% (1%無上限+1%上限600元/期)
     cashbackLimit: 600, // 每期上限600元
     maxAmount: 30000, // 便利商店上限
-    notes: "主要針對房屋稅，所得稅適用性待確認，需在7-11使用OPEN錢包支付，需月消費滿5000元，回饋期限至2025/6/30"
+    notes: "主要針對房屋稅，所得稅適用性待確認，需在7-11使用OPEN錢包支付，需月消費滿5000元，回饋期限至2025/6/30",
+    chains: ["7-11"]
   },
   {
     id: 5,
@@ -287,7 +646,8 @@ export const convenienceStoreOptions = [
     cashbackRate: 0.04, // 4%
     cashbackLimit: 200, // 每季上限200元
     maxAmount: 1000, // FamiPay單筆上限1000元
-    notes: "需登錄，每季限3,500名，需在全家使用FamiPay支付，需季消費滿5000元，回饋為等值禮券，回饋期限至2025/6/30"
+    notes: "需登錄，每季限3,500名，需在全家使用FamiPay支付，需季消費滿5000元，回饋為等值禮券，回饋期限至2025/6/30",
+    chains: ["family"]
   }
 ];
 

@@ -145,8 +145,8 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
       });
     });
     
-    // 按照月供从低到高排序
-    allOptions.sort((a, b) => a.handlingFee - b.handlingFee || a.interestRate - b.interestRate);
+    // 按照APR收益从高到低排序
+    allOptions.sort((a, b) => b.aprSavings - a.aprSavings);
     
     return allOptions;
   };
