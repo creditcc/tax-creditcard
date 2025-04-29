@@ -312,6 +312,8 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
             <tr className="bg-gray-100">
               <th className="p-3 text-left border">信用卡</th>
               <th className="p-3 text-left border">額外條件</th>
+              <th className="p-3 text-left border">最低稅額</th>
+              <th className="p-3 text-left border">最高稅額</th>
               <th className="p-3 text-left border">回饋率</th>
               <th className="p-3 text-left border">可獲回饋</th>
             </tr>
@@ -327,6 +329,8 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                     {card.name}
                   </td>
                   <td className="p-3 border"> {card.specialRequirements}</td>
+                  <td className="p-3 border">NT$ {card.minTaxAmount.toLocaleString()}</td>
+                  <td className="p-3 border">NT$ {card.maxTaxAmount.toLocaleString()}</td>
                   <td className="p-3 border">{(card.cashbackRate * 100).toFixed(2)}%</td>
                   <td className="p-3 border">NT$ {cashback.toLocaleString()}</td>
                   
