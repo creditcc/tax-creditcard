@@ -1069,6 +1069,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
             cards={getCurrentViewCards()} 
             taxAmount={taxAmount} 
             strategy={viewMode} 
+            period={selectedPeriod}
           />
         </div>
       </div>

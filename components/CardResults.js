@@ -1,9 +1,26 @@
 import React from 'react';
 import CreditCard from './CreditCard';
+import { installmentOptions } from '../data/creditcards';
+import PropTypes from 'prop-types';
 
-const CardResults = ({ cards, taxAmount, strategy }) => {
+const CardResults = ({ cards, taxAmount, strategy, period }) => {
   // 去除重複的卡片（根據 id）
   const uniqueCards = [...new Map(cards.map(card => [card.id, card])).values()];
+
+  // 根據 period 過濾卡片
+  const filteredCards = uniqueCards.filter(card => {
+    if (strategy === 'installment') {
+      const cardInstOptions = installmentOptions.find(opt => opt.bank === card.bank);
+      if (!cardInstOptions) return false;
+      
+      if (period === 'all') {
+        return true;
+      }
+      
+      return cardInstOptions.periods.includes(parseInt(period));
+    }
+    return true;
+  });
 
   // 根據不同視圖模式顯示不同的標題
   const getRecommendationTitle = () => {
@@ -61,7 +78,7 @@ const CardResults = ({ cards, taxAmount, strategy }) => {
       
       {uniqueCards.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {uniqueCards.map((card, index) => (
+          {filteredCards.map((card, index) => (
             <CreditCard 
               key={card.uniqueId || `${card.id}-${index}`} 
               card={card} 
@@ -80,6 +97,13 @@ const CardResults = ({ cards, taxAmount, strategy }) => {
       )}
     </div>
   );
+};
+
+CardResults.propTypes = {
+  cards: PropTypes.array.isRequired,
+  taxAmount: PropTypes.number.isRequired,
+  strategy: PropTypes.string.isRequired,
+  period: PropTypes.string
 };
 
 export default CardResults;
