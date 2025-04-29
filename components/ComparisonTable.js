@@ -217,7 +217,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           interestRate: bestOption.interestRate,
           minAmount: bestOption.minAmount,
           bank: bestOption.bank,
-          specialOffer: bestOption.specialOffer
+          specialRequirements: bestOption.specialRequirements
         }
       };
     } 
@@ -311,9 +311,9 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           <thead>
             <tr className="bg-gray-100">
               <th className="p-3 text-left border">信用卡</th>
+              <th className="p-3 text-left border">額外條件</th>
               <th className="p-3 text-left border">回饋率</th>
               <th className="p-3 text-left border">可獲回饋</th>
-              <th className="p-3 text-left border">額外條件</th>
             </tr>
           </thead>
           <tbody>
@@ -326,17 +326,10 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                     {index === 0 && <span className="inline-block bg-yellow-500 text-white text-xs px-2 py-1 rounded mr-2">推薦</span>}
                     {card.name}
                   </td>
+                  <td className="p-3 border"> {card.specialRequirements}</td>
                   <td className="p-3 border">{(card.cashbackRate * 100).toFixed(2)}%</td>
                   <td className="p-3 border">NT$ {cashback.toLocaleString()}</td>
-                  <td className="p-3 border">
-                    {card.specialRequirements && (
-                      <ul className="list-disc pl-5">
-                        {card.specialRequirements.map((req, i) => (
-                          <li key={i}>{req}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </td>
+                  
                 </tr>
               );
             })}
@@ -427,7 +420,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           <thead>
             <tr className="bg-gray-100">
               <th className="p-3 text-left border">信用卡</th>
-              <th className="p-3 text-left border">超商</th>
+              <th className="p-3 text-left border">銀行</th>
               <th className="p-3 text-left border">回饋率</th>
               <th className="p-3 text-left border">建議刷卡金額</th>
               <th className="p-3 text-left border">可獲回饋</th>
@@ -556,8 +549,8 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                         ?
                       </span>
                     </p>
-                    {splitStrategy.remainingStrategy.bestOption.specialOffer && (
-                      <p className="mt-1 italic">備註: {splitStrategy.remainingStrategy.bestOption.specialOffer}</p>
+                    {splitStrategy.remainingStrategy.bestOption.specialRequirements && (
+                      <p className="mt-1 italic">備註: {splitStrategy.remainingStrategy.bestOption.specialRequirements}</p>
                     )}
                   </div>
                 </div>
