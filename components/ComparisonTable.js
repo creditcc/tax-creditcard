@@ -847,18 +847,18 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
       <div className="px-0 md:px-4">
         <h3 className="text-2xl font-bold mb-6 text-slate-800 px-4 md:px-0">信用卡繳稅方案比較</h3>
         
-        <div className="flex flex-wrap gap-2 md:border-b mb-6 px-4 md:px-0">
-          <button
-            className={`flex-1 min-w-[140px] py-4 px-5 font-medium rounded-lg md:rounded-b-none transition-all ${
-              viewMode === 'split' 
-                ? 'bg-purple-100 text-purple-700 border-2 border-purple-200 md:border-b-0' 
-                : 'text-slate-600 hover:bg-slate-50 border-transparent border-2 bg-gray-50'
-            } active:bg-slate-100 touch-manipulation cursor-pointer`}
-            onClick={() => setViewMode('split')}
-          >
+        <div className="flex flex-wrap gap-2 md:border-b mb-6 px-4 md:px-0 min-h-[100px]">
+            <button
+              className={`flex-1 min-w-[140px] py-4 px-5 font-medium rounded-lg md:rounded-b-none transition-all min-h-[85px] flex flex-col justify-center ${
+                viewMode === 'split' 
+                  ? 'bg-purple-100 text-purple-700 border-2 border-purple-200 md:border-b-0' 
+                  : 'text-slate-600 hover:bg-slate-50 border-transparent border-2 bg-gray-50'
+              } active:bg-slate-100 touch-manipulation cursor-pointer flex-shrink-0`}
+              onClick={() => setViewMode('split')}
+            >
             <div>最佳組合</div>
             {splitStrategy && (
-              <div className="mt-1 text-sm font-normal">
+              <div className="text-sm font-normal">
                 {(() => {
                   const totalCashback = splitStrategy.convenienceCashback +
                     (splitStrategy.remainingStrategy?.type === 'cashback' ? splitStrategy.remainingStrategy.cashback : 0);
@@ -870,14 +870,14 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                     return `回饋 NT$ ${(totalCashback + aprSavings).toLocaleString()}`;
                   }
                   
-                  return `回饋 NT$ ${totalCashback.toLocaleString()}`;
+                  return `總回饋：NT$ ${totalCashback.toLocaleString()}`;
                 })()}
               </div>
             )}
           </button>
 
           <button
-            className={`flex-1 min-w-[140px] py-4 px-5 font-medium rounded-lg md:rounded-b-none transition-all ${
+            className={`flex-1 min-w-[140px] py-4 px-5 font-medium rounded-lg md:rounded-b-none transition-all min-h-[85px] flex flex-col justify-center ${
               viewMode === 'convenience' 
                 ? 'bg-green-100 text-green-700 border-2 border-green-200 md:border-b-0' 
                 : 'text-slate-600 hover:bg-slate-50 border-transparent border-2 bg-gray-50'
@@ -886,14 +886,14 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           >
             <div>超商繳費</div>
             {optimalCombination.length > 0 && (
-              <div className="mt-1 text-sm font-normal">
+              <div className="text-sm font-normal">
                 回饋 NT$ {optimalCombination.reduce((sum, card) => sum + card.cashback, 0).toLocaleString()}
               </div>
             )}
           </button>
 
           <button
-            className={`flex-1 min-w-[140px] py-4 px-5 font-medium rounded-lg md:rounded-b-none transition-all ${
+            className={`flex-1 min-w-[140px] py-4 px-5 font-medium rounded-lg md:rounded-b-none transition-all min-h-[85px] flex flex-col justify-center ${
               viewMode === 'installment' 
                 ? 'bg-orange-100 text-orange-700 border-2 border-orange-200 md:border-b-0' 
                 : 'text-slate-600 hover:bg-slate-50 border-transparent border-2 bg-gray-50'
@@ -902,14 +902,14 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           >
             <div>分期零利率</div>
             {installmentSavings.length > 0 && (
-              <div className="mt-1 text-sm font-normal">
+              <div className="text-sm font-normal">
                 最高節省 NT$ {Math.max(...installmentSavings.map(s => s.totalSavings)).toLocaleString()}
               </div>
             )}
           </button>
 
           <button
-            className={`flex-1 min-w-[140px] py-4 px-5 font-medium rounded-lg md:rounded-b-none transition-all ${
+            className={`flex-1 min-w-[140px] py-4 px-5 font-medium rounded-lg md:rounded-b-none transition-all min-h-[85px] flex flex-col justify-center ${
               viewMode === 'cashback' 
                 ? 'bg-yellow-100 text-yellow-700 border-2 border-yellow-200 md:border-b-0' 
                 : 'text-slate-600 hover:bg-slate-50 border-transparent border-2 bg-gray-50'
@@ -918,7 +918,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           >
             <div>簡單刷一張</div>
             {creditCards.length > 0 && taxAmount > 0 && (
-              <div className="mt-1 text-sm font-normal">
+              <div className="text-sm font-normal">
                 {(() => {
                   const eligibleCards = creditCards.filter(card => 
                     card.cashbackRate > 0 &&
