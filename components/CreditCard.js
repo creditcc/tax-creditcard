@@ -3,30 +3,18 @@ import React from 'react';
 const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
   // 从credit card数据中确定分期期数
   const getInstallmentPeriod = () => {
-    // 直接从card对象获取期数信息
-    if (card.installmentPeriods) {
-      return card.installmentPeriods;
-    }
-    
-    // 从installmentOptions数据中查找对应银行的分期期数
     try {
-      // 这里必须使用import动态导入，确保installmentOptions可用
-      const { installmentOptions } = require('../data/creditcards');
-      if (installmentOptions) {
-        // 找出该银行的最高分期期数选项
-        const bankOptions = installmentOptions.filter(opt => opt.bank === card.bank);
-        if (bankOptions.length > 0) {
-          // 找出最高期数
-          const maxPeriod = Math.max(...bankOptions.flatMap(opt => opt.periods));
-          return maxPeriod;
-        }
+      if (!installmentOptions) {
+        return [];
       }
+
+      return installmentOptions.filter(option => 
+        option.cardId === card.id && 
+        option.minAmount <= taxAmount
+      );
     } catch (error) {
-      console.log('无法导入installmentOptions数据', error);
+      return [];
     }
-    
-    // 默认返回6期（常见的分期期数）
-    return 6;
   };
   
   // 设置分期期数
@@ -116,7 +104,7 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
 
     const features = [];
 
-    // 只在分期零利率 tab 时顯示分期相關資訊
+    // 只在分期零利率 tab 时显示分期相关资讯
     if (viewMode === 'installment') {
       features.push(
         <div key="installment" className="mb-2">
@@ -136,7 +124,7 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
       );
     }
 
-    // 其他功能保持不變
+    // 其他功能保持不变
     if (card.minTaxAmount !== undefined) {
       features.push(
         <div key="minTaxAmount" className="mb-2">
@@ -180,7 +168,11 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
       );
     }
 
-    return features;
+    return features.map((feature, index) => (
+      <div key={`${card.id}-${viewMode}-${taxAmount}-${index}`}>
+        {feature}
+      </div>
+    ));
   };
   
   // 拆單策略說明
@@ -211,12 +203,14 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
   const parseTextWithUrls = (text) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     const parts = text.split(urlRegex);
+    const uniqueKey = `${card.id}-${viewMode}-${taxAmount}`;
     
     return parts.map((part, index) => {
+      const key = `${uniqueKey}-${index}`;
       if (part.match(urlRegex)) {
         return (
           <a
-            key={index}
+            key={key}
             href={part}
             target="_blank"
             rel="noopener noreferrer"

@@ -48,6 +48,13 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
     setAnnualRateInput((annualRate * 100).toString());
   }, [annualRate]);
 
+  // 監聽分期期數變化，更新 splitStrategy
+  useEffect(() => {
+    // 重新計算拆分策略
+    const newStrategy = calculateSplitStrategy(taxAmount);
+    setSplitStrategy(newStrategy);
+  }, [selectedPeriod, taxAmount]);
+
   // 计算最佳便利商店卡组合
   const calculateOptimalCombination = (amount) => {
     // 筛选有便利商店选项的卡片
@@ -91,16 +98,31 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
     
     let remainingAmount = amount;
     const result = [];
+    const cardUsage = new Map(); // 用于记录每张卡的累计使用金额
     
-    // 贪心算法：使用不同的卡片，每张卡只使用一次
+    // 贪心算法：使用不同的卡片，每张卡可以多次使用
     // 最多使用5张不同的卡，每张卡不超过30000元
     for (const card of workingCards) {
       if (remainingAmount <= 0 || result.length >= 5) break;
       
-      // 每张卡只使用一次，计算这张卡实际可用的金额
-      const amountToUse = Math.min(card.singleTransactionLimit, remainingAmount);
+      // 计算这张卡还可以使用的最大金额
+      let currentUsage = cardUsage.get(card.id) || 0;
+      const maxAvailable = card.maxTaxAmount - currentUsage;
       
-      if (amountToUse > 0) {
+      // 如果这张卡已经用完额度，跳过
+      if (maxAvailable <= 0) {
+        continue;
+      }
+      
+      // 计算这次可以使用的金额（不超过单笔限额和剩余金额）
+      let amountToUse = Math.min(
+        card.singleTransactionLimit,
+        remainingAmount,
+        maxAvailable
+      );
+      
+      // 如果有剩余金额且这张卡还可以使用，继续使用
+      while (amountToUse > 0 && remainingAmount > 0 && result.length < 5) {
         const cashback = Math.round(Math.min(
           amountToUse * card.bestOption.cashbackRate,
           card.bestOption.cashbackLimit
@@ -116,7 +138,20 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           totalCards: Math.min(5, workingCards.length) // 总共使用的卡数
         });
         
+        // 更新剩余金额和这张卡的累计使用金额
         remainingAmount -= amountToUse;
+        currentUsage += amountToUse;
+        cardUsage.set(card.id, currentUsage);
+        
+        // 如果这张卡已经用完额度，跳出循环
+        if (currentUsage >= card.maxTaxAmount) break;
+        
+        // 计算下一次可以使用的金额
+        amountToUse = Math.min(
+          card.singleTransactionLimit,
+          remainingAmount,
+          card.maxTaxAmount - currentUsage
+        );
       }
     }
     
@@ -149,6 +184,14 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           // 计算递减余额所产生的总利息 (等额本金)
           const aprSavings = Math.round((monthlyRate * amount * (months + 1)) / 2);
           
+          // 如果该卡支持分期和回饋共用，计算额外的现金回饋
+          const cashback = card.rebateWithInstallments 
+            ? Math.min(
+                amount * card.cashbackRate, 
+                card.cashbackLimit || Infinity
+              )
+            : 0;
+          
           // 生成唯一的选项ID
           const uniqueOptionId = `${optionId++}`;
           
@@ -162,8 +205,10 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
             interestRate: option.interestRate,
             minAmount: option.minAmount,
             aprSavings: aprSavings,
+            cashback: cashback, // 添加现金回饋金额
             specialRequirements: option.specialRequirements,
-            monthlySaving: Math.round(calculateMonthlySaving(amount, { ...option, months }, annualRate))
+            monthlySaving: Math.round(calculateMonthlySaving(amount, { ...option, months }, annualRate)),
+            totalSavings: Math.round(aprSavings + cashback) // 添加总收益
           });
         });
       });
@@ -174,7 +219,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
       if (a.handlingFee !== b.handlingFee) {
         return a.handlingFee - b.handlingFee;
       }
-      return b.aprSavings - a.aprSavings;
+      return b.totalSavings - a.totalSavings;
     });
     
     return allOptions;
@@ -357,10 +402,11 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
             card.cashbackRate > 0 &&
             (card.minTaxAmount === undefined || card.minTaxAmount <= taxAmount)
           )
-          .map(card => ({
+          .map((card, index) => ({
             ...card,
             estimatedCashback: Math.round(calculateActualCashback(card)),
-            viewType: 'cashback'
+            viewType: 'cashback',
+            uniqueId: `${card.id}-${taxAmount}-${index}` // 添加唯一 id
           }))
           .sort((a, b) => b.estimatedCashback - a.estimatedCashback)
           .slice(0, 8);
@@ -448,7 +494,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           </thead>
           <tbody>
             {eligibleCards.map((card, index) => (
-              <tr key={card.id} className={index === 0 ? "bg-yellow-50" : ""}>
+              <tr key={`${card.id}-${card.cashbackRate}-${card.cashbackLimit}-${taxAmount}-${index}`} className={index === 0 ? "bg-yellow-50" : ""}>
                 <td className="p-3 border whitespace-nowrap truncate">
                   {index === 0 && <span className="inline-block bg-yellow-500 text-white text-xs px-2 py-1 rounded mr-2">推薦</span>}
                   {card.name}
@@ -552,31 +598,21 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                   <th className="p-2 md:p-3 text-center border whitespace-nowrap">信用卡</th>
                   <th className="p-2 md:p-3 text-center border whitespace-nowrap">期數</th>
                   <th className="p-2 md:p-3 text-center border whitespace-nowrap">每月還款</th>
+                  <th className="p-2 md:p-3 text-center border whitespace-nowrap">回饋率</th>
                   <th className="p-2 md:p-3 text-center border whitespace-nowrap">最低稅額</th>
-                  <th className="p-2 md:p-3 text-center border whitespace-nowrap">
-                    年利率 {(annualRate * 100).toFixed(1)}% 收益
-                    <span 
-                      className="ml-1 inline-flex items-center justify-center text-gray-500 cursor-help rounded-full border border-gray-400 w-4 h-4"
-                      title={`以活存年利率：${(annualRate * 100).toFixed(1)}% 計算，此計算僅為存款端的利息「收益」，並未考慮政府對所得稅分期付款本身是否可能收取額外費用或利息`}
-                    >
-                      ?
-                    </span>
-                  </th>
+                  <th className="p-2 md:p-3 text-center border whitespace-nowrap">利息收益</th>
+                  <th className="p-2 md:p-3 text-center border whitespace-nowrap">回饋</th>
+                  <th className="p-2 md:p-3 text-center border whitespace-nowrap">總收益</th>
                   <th className="p-2 md:p-3 text-center border whitespace-nowrap">注意事項</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredSavings.map((option, index) => {
                   const monthlyPayment = taxAmount / option.months;
-                  const totalFee = taxAmount * option.handlingFee;
-                  
-                  // 查找对应的信用卡信息，获取 specialRequirements
                   const creditCard = creditCards.find(card => 
                     card.id === option.cardId
                   );
                   
-                  // 使用 cardId、months 和 bank 的組合來生成唯一 key
-                  const uniqueKey = `${option.cardId}-${option.months}-${option.bank}`;
                   return (
                     <tr key={option.id} className={index === 0 ? "bg-orange-50" : ""}>
                       <td className="p-2 md:p-3 border whitespace-nowrap truncate">
@@ -585,12 +621,37 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                       </td>
                       <td className="p-2 md:p-3 border whitespace-nowrap">{option.months}期</td>
                       <td className="p-2 md:p-3 border whitespace-nowrap">NT$ {monthlyPayment.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
+                      <td className="p-2 md:p-3 border whitespace-nowrap">
+                        {creditCard?.rebateWithInstallments 
+                          ? `${(creditCard.cashbackRate * 100).toFixed(2)}%` 
+                          : '-'
+                        }
+                        {creditCard?.rebateWithInstallments && creditCard?.cashbackLimit && (
+                          <span className="block text-xs text-gray-500 mt-1">
+                            (上限: NT$ {creditCard.cashbackLimit.toLocaleString()})
+                          </span>
+                        )}
+                      </td>
                       <td className="p-2 md:p-3 border whitespace-nowrap">NT$ {option.minAmount.toLocaleString()}</td>
                       <td className="p-2 md:p-3 border whitespace-nowrap">
                         NT$ {option.aprSavings.toLocaleString()}
                       </td>
+                      <td className="p-2 md:p-3 border whitespace-nowrap">
+                        {creditCard?.rebateWithInstallments 
+                          ? `NT$ ${option.cashback.toLocaleString()}` 
+                          : '0'
+                        }
+                      </td>
+                      <td className="p-2 md:p-3 border whitespace-nowrap">
+                        NT$ {option.totalSavings.toLocaleString()}
+                      </td>
                       <td className="p-2 md:p-3 border whitespace-nowrap truncate">
                         {option.specialRequirements || '無特殊要求'}
+                        {!creditCard?.rebateWithInstallments && creditCard?.cashbackRate > 0 && (
+                          <span className="block text-xs text-gray-500 mt-1">
+                            * 此卡現金回饋與分期不可共用
+                          </span>
+                        )}
                       </td>
                     </tr>
                   );
@@ -628,7 +689,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
             </thead>
             <tbody>
               {optimalCombination.map((card, index) => (
-                <tr key={card.id} className={index === 0 ? "bg-green-50" : ""}>
+                <tr key={`${card.id}-${card.amountToUse}-${card.cardNumber}-${index}`}>
                   <td className="p-2 md:p-3 border whitespace-nowrap truncate">
                     {index === 0 && 
                       <span className="inline-block bg-green-500 text-white text-xs px-2 py-1 rounded mr-2">最高回饋</span>
@@ -675,8 +736,6 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
       const option = splitStrategy.remainingStrategy.bestOption;
       const amount = splitStrategy.remainingStrategy.amount;
       const months = option.months;
-      
-      const annualRate = 0.015; // 1.5% 年利率
       const monthlyRate = annualRate / 12; // 月利率
       
       // 计算递减余额所产生的总利息 (等额本金还款)
@@ -708,7 +767,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                 </thead>
                 <tbody>
                   {splitStrategy.conveniencePortion.map((card, index) => (
-                    <tr key={card.id}>
+                    <tr key={`${card.id}-${card.amountToUse}-${card.cardNumber}-${index}`}>
                       <td className="p-2 md:p-3 border whitespace-nowrap truncate">{card.name}</td>
                       <td className="p-2 md:p-3 border whitespace-nowrap">{(card.bestOption.cashbackRate * 100).toFixed(2)}%</td>
                       <td className="p-2 md:p-3 border whitespace-nowrap">
@@ -760,7 +819,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                     </p>
                     <p>每月還款: NT$ {(splitStrategy.remainingStrategy.amount / splitStrategy.remainingStrategy.bestOption.months).toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
                     <p className="text-orange-600">
-                      活存收益: NT$ {Math.round(aprSavings).toLocaleString()}
+                      分期0利率收益: NT$ {Math.round(aprSavings).toLocaleString()}
                       <span 
                         className="ml-1 inline-block text-gray-500 cursor-help rounded-full border border-gray-400 w-3 h-3 text-xs text-center"
                         title="以活存年利率：1.5% 計算，此計算僅為存款端的利息「收益」，並未考慮政府對所得稅分期付款本身是否可能收取額外費用或利息"
@@ -790,11 +849,11 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
         
         <div className="flex flex-wrap gap-2 md:border-b mb-6 px-4 md:px-0">
           <button
-            className={`flex-1 min-w-[140px] py-3 px-4 font-medium rounded-lg md:rounded-b-none transition-all ${
+            className={`flex-1 min-w-[140px] py-4 px-5 font-medium rounded-lg md:rounded-b-none transition-all ${
               viewMode === 'split' 
                 ? 'bg-purple-100 text-purple-700 border-2 border-purple-200 md:border-b-0' 
-                : 'text-slate-600 hover:bg-slate-50 border-transparent border-2'
-            }`}
+                : 'text-slate-600 hover:bg-slate-50 border-transparent border-2 bg-gray-50'
+            } active:bg-slate-100 touch-manipulation cursor-pointer`}
             onClick={() => setViewMode('split')}
           >
             <div>最佳組合</div>
@@ -806,7 +865,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                   
                   if (splitStrategy.remainingStrategy?.type === 'installment') {
                     const aprSavings = Math.round(
-                      (0.015 * splitStrategy.remainingStrategy.amount * (splitStrategy.remainingStrategy.bestOption.months + 1)) / 24
+                      (annualRate * splitStrategy.remainingStrategy.amount * (splitStrategy.remainingStrategy.bestOption.months + 1)) / 24
                     );
                     return `回饋 NT$ ${(totalCashback + aprSavings).toLocaleString()}`;
                   }
@@ -818,11 +877,11 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           </button>
 
           <button
-            className={`flex-1 min-w-[140px] py-3 px-4 font-medium rounded-lg md:rounded-b-none transition-all ${
-              viewMode === 'convenience'
-                ? 'bg-green-100 text-green-700 border-2 border-green-200 md:border-b-0'
-                : 'text-slate-600 hover:bg-slate-50 border-transparent border-2'
-            }`}
+            className={`flex-1 min-w-[140px] py-4 px-5 font-medium rounded-lg md:rounded-b-none transition-all ${
+              viewMode === 'convenience' 
+                ? 'bg-green-100 text-green-700 border-2 border-green-200 md:border-b-0' 
+                : 'text-slate-600 hover:bg-slate-50 border-transparent border-2 bg-gray-50'
+            } active:bg-slate-100 touch-manipulation cursor-pointer`}
             onClick={() => setViewMode('convenience')}
           >
             <div>超商繳費</div>
@@ -834,27 +893,27 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           </button>
 
           <button
-            className={`flex-1 min-w-[140px] py-3 px-4 font-medium rounded-lg md:rounded-b-none transition-all ${
-              viewMode === 'installment'
-                ? 'bg-orange-100 text-orange-700 border-2 border-orange-200 md:border-b-0'
-                : 'text-slate-600 hover:bg-slate-50 border-transparent border-2'
-            }`}
+            className={`flex-1 min-w-[140px] py-4 px-5 font-medium rounded-lg md:rounded-b-none transition-all ${
+              viewMode === 'installment' 
+                ? 'bg-orange-100 text-orange-700 border-2 border-orange-200 md:border-b-0' 
+                : 'text-slate-600 hover:bg-slate-50 border-transparent border-2 bg-gray-50'
+            } active:bg-slate-100 touch-manipulation cursor-pointer`}
             onClick={() => setViewMode('installment')}
           >
             <div>分期零利率</div>
             {installmentSavings.length > 0 && (
               <div className="mt-1 text-sm font-normal">
-                節省 NT$ {Math.max(...installmentSavings.map(s => s.aprSavings)).toLocaleString()}
+                最高節省 NT$ {Math.max(...installmentSavings.map(s => s.totalSavings)).toLocaleString()}
               </div>
             )}
           </button>
 
           <button
-            className={`flex-1 min-w-[140px] py-3 px-4 font-medium rounded-lg md:rounded-b-none transition-all ${
-              viewMode === 'cashback'
-                ? 'bg-yellow-100 text-yellow-700 border-2 border-yellow-200 md:border-b-0'
-                : 'text-slate-600 hover:bg-slate-50 border-transparent border-2'
-            }`}
+            className={`flex-1 min-w-[140px] py-4 px-5 font-medium rounded-lg md:rounded-b-none transition-all ${
+              viewMode === 'cashback' 
+                ? 'bg-yellow-100 text-yellow-700 border-2 border-yellow-200 md:border-b-0' 
+                : 'text-slate-600 hover:bg-slate-50 border-transparent border-2 bg-gray-50'
+            } active:bg-slate-100 touch-manipulation cursor-pointer`}
             onClick={() => setViewMode('cashback')}
           >
             <div>簡單刷一張</div>
@@ -882,7 +941,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                       taxAmount * bestCard.cashbackRate,
                       bestCard.cashbackLimit || Infinity
                     );
-                    return `回饋 NT$ ${cashback.toLocaleString()}`;
+                    return `最高回饋 NT$ ${cashback.toLocaleString()}`;
                   }
                   return null;
                 })()}
@@ -891,7 +950,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           </button>
         </div>
         
-        <div className={`bg-white/50 backdrop-blur-sm rounded-2xl md:rounded-t-none shadow-sm border border-slate-200/60 p-4 md:p-6 overflow-hidden ${
+        <div className={`bg-white/50 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/60 p-4 md:p-6 overflow-hidden ${
           viewMode === 'split' ? 'md:border-t-purple-200' :
           viewMode === 'convenience' ? 'md:border-t-green-200' :
           viewMode === 'installment' ? 'md:border-t-orange-200' :
@@ -921,7 +980,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                 <h4 className="text-xl font-bold text-orange-700">零利率分期方案比較</h4>
                 {installmentSavings.length > 0 && (
                   <div className="text-lg font-medium text-orange-600">
-                    最高節省：NT$ {Math.max(...installmentSavings.map(s => s.aprSavings)).toLocaleString()}
+                    最高節省：NT$ {Math.max(...installmentSavings.map(s => s.totalSavings)).toLocaleString()}
                   </div>
                 )}
               </div>
@@ -984,7 +1043,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                   <div className="text-lg font-medium text-purple-600">
                     {splitStrategy.remainingStrategy?.type === 'installment'
                       ? `回饋 NT$ ${splitStrategy.convenienceCashback.toLocaleString()} + 分期節省 NT$ ${Math.round(
-                          (0.015 * splitStrategy.remainingStrategy.amount * (splitStrategy.remainingStrategy.bestOption.months + 1)) / 24
+                          (annualRate * splitStrategy.remainingStrategy.amount * (splitStrategy.remainingStrategy.bestOption.months + 1)) / 24
                         ).toLocaleString()}`
                       : `總回饋：NT$ ${(
                           splitStrategy.convenienceCashback +
@@ -1006,7 +1065,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
         <div className="bg-white/50 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/60 p-4 md:p-8 mt-6">
           <h3 className="text-xl font-bold mb-6 text-slate-800">符合條件的信用卡</h3>
           <CardResults 
-            key={`card-results-${viewMode}`}
+            key={`card-results-${viewMode}-${selectedPeriod}-${taxAmount}`} 
             cards={getCurrentViewCards()} 
             taxAmount={taxAmount} 
             strategy={viewMode} 

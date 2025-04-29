@@ -143,7 +143,7 @@ export const creditCards = [
     specialRequirements: null,
     bank: "富邦銀行",
     cashbackRate: 0.02, // 2% (1%無上限+1%上限600元/期)
-    cashbackLimit: 1200, // 最高加碼回饋600元
+    cashbackLimit: 600, // 最高加碼回饋600元
     minTaxAmount: 5000, // 需月消費滿5000元
     maxTaxAmount: 60000, // 便利商店上限
     requireRegistration: false,
@@ -480,7 +480,7 @@ export const creditCards = [
   {
     id: 30,
     name: "玉山銀行信用卡",
-    specialRequirements: "一般",
+    specialRequirements: "一般卡",
     bank: "玉山銀行",
     cashbackRate: 0.002, // 0.2% for "不限" (assuming this means general customers or lowest tier)
     cashbackLimit: 0, // 無上限
@@ -551,7 +551,7 @@ export const creditCards = [
     specialRequirements: "邀請制, 稅額30萬+",
     bank: "國泰世華",
     cashbackRate: 0.003, // 0.3%
-    cashbackLimit: 5000, // 共用上限? Table ambiguous. Assuming 5000 applies to both tiers as max? Check source. Assuming limit shared.
+    cashbackLimit: 50000, // 共用上限? Table ambiguous. Assuming 5000 applies to both tiers as max? Check source. Assuming limit shared.
     minTaxAmount: 300000, // 30萬
     maxTaxAmount: 1666667, // Approx. 5000 / 0.003
     requireRegistration: false, // Invitation based
@@ -1308,7 +1308,7 @@ export const installmentOptions = [
 // 超商繳費
 export const convenienceStoreOptions = [
   {
-    id: 1,
+    id: 4, // foreign key
     bank: "台新銀行",
     cards: ["@GoGo 卡"],
     cashbackRate: 0.06, // 6%
@@ -1318,7 +1318,7 @@ export const convenienceStoreOptions = [
     chains: ["7-11", "family"]
   },
   {
-    id: 2,
+    id: 5,
     bank: "台新銀行",
     cards: ["@GoGo 卡 (新戶)"],
     cashbackRate: 0.26, // 6% + 20% = 26%
@@ -1328,7 +1328,7 @@ export const convenienceStoreOptions = [
     chains: ["7-11", "family"]
   },
   {
-    id: 3,
+    id: 9,
     bank: "中國信託",
     cards: ["統一企業認同卡"],
     cashbackRate: 0.03, // 3%
@@ -1338,17 +1338,17 @@ export const convenienceStoreOptions = [
     chains: ["7-11"]
   },
   {
-    id: 4,
+    id: 10,
     bank: "富邦銀行",
     cards: ["OpenPossible 卡"],
     cashbackRate: 0.02, // 2% (1%無上限+1%上限600元/期)
-    cashbackLimit: 1200, // 每期上限600元
+    cashbackLimit: 600, // 每期上限600元
     maxAmount: 60000, // 便利商店上限
     notes: "(1%無上限+1%上限600元/期，主要針對房屋稅，所得稅適用性待確認，需在7-11使用OPEN錢包支付，需月消費滿5000元，回饋期限至2025/6/30",
     chains: ["7-11"]
   },
   {
-    id: 5,
+    id: 11,
     bank: "新光銀行",
     cards: ["悠遊聯名卡"],
     cashbackRate: 0.04, // 4%
