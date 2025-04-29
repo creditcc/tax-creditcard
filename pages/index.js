@@ -103,9 +103,9 @@ export default function Home() {
       case 'installment':
         return (
           <div className="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500 mb-6">
-            <h3 className="text-xl font-bold text-orange-800 mb-2">高額稅款首選零利率分期</h3>
+            <h3 className="text-xl font-bold text-orange-800 mb-2">首選零利率分期</h3>
             <p className="mb-2">
-              您的稅額為 NT$ {taxAmount.toLocaleString()}，對於高額稅款，使用零利率分期可以避免一次性大額消費，
+              您的稅額為 NT$ {taxAmount.toLocaleString()}，使用零利率分期可以避免一次性大額消費，
               並讓您的資金能夠更長時間地投資理財。
             </p>
             <ul className="list-disc list-inside text-orange-700 space-y-1">
@@ -119,7 +119,7 @@ export default function Home() {
       case 'convenience':
         return (
           <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 mb-6">
-            <h3 className="text-xl font-bold text-green-800 mb-2">小額稅款首選超商繳費</h3>
+            <h3 className="text-xl font-bold text-green-800 mb-2">首選超商繳費</h3>
             <p className="mb-2">
               您的稅額為 NT$ {taxAmount.toLocaleString()}，超商繳費是您的最佳選擇，
               部分信用卡在超商繳費可享最高6%回饋。
@@ -135,7 +135,7 @@ export default function Home() {
       case 'split':
         return (
           <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-500 mb-6">
-            <h3 className="text-xl font-bold text-purple-800 mb-2">中等稅款建議拆單繳款</h3>
+            <h3 className="text-xl font-bold text-purple-800 mb-2">建議拆單繳款</h3>
             <p className="mb-2">
               您的稅額為 NT$ {taxAmount.toLocaleString()}，拆單使用不同信用卡繳納可能是您的最佳選擇，
               透過合理分配，可以最大化回饋收益。
@@ -168,51 +168,53 @@ export default function Home() {
         <meta name="description" content="計算2025綜所稅最佳信用卡繳納方案，比較各銀行卡片回饋、零利率分期與超商繳費選項，為您節省最多稅金支出。" />
       </Head>
 
-      <section className="mb-10">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">2025綜所稅信用卡最佳繳納策略</h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            輸入您的稅額，我們會為您計算最佳的繳納組合方案，
-            包括零利率分期、超商繳費及現金回饋比較，助您節省支出。
+      <section className="max-w-4xl mx-auto px-4 py-12">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent">
+            2025綜所稅信用卡繳納計算
+          </h1>
+          <p className="text-lg text-slate-600">
+            輸入您的稅額，立即為您計算最佳的繳納組合方案
           </p>
         </div>
 
-        <div className="max-w-2xl mx-auto mb-12">
-          <TaxForm onSubmit={handleTaxSubmit} />
+        <div className="max-w-2xl mx-auto mb-16">
+          <div className="bg-white/50 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/60 p-8">
+            <TaxForm onSubmit={handleTaxSubmit} />
+          </div>
         </div>
 
         {showResults && (
-          <div ref={resultsRef} className="mt-8 space-y-6">
-            <h2 className="text-2xl font-bold border-b pb-2">繳稅建議</h2>
-            
+          <div ref={resultsRef} className="mt-12 space-y-8">
             {renderStrategyAdvice()}
             
-            <ComparisonTable taxAmount={taxAmount} />
-            
-            <h3 className="text-xl font-bold mt-8 mb-4">符合條件的信用卡</h3>
-            <CardResults cards={filteredCards} taxAmount={taxAmount} strategy={paymentStrategy} />
+            <div className="bg-white/50 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/60 p-8">
+              <ComparisonTable taxAmount={taxAmount} />
+            </div>
           </div>
         )}
       </section>
 
-      <section className="mb-10 bg-gray-50 p-6 rounded-lg">
-        <h2 className="text-2xl font-bold mb-4">繳稅注意事項</h2>
-        <div className="space-y-4 text-gray-700">
-          <p>
-            <strong>綜所稅繳納期間：</strong>每年5月1日至6月30日
-          </p>
-          <p>
-            <strong>信用卡繳稅優勢：</strong>
-            使用信用卡繳稅可享有現金回饋、零利率分期或積點回饋等優惠，但需注意各卡片的回饋上限和適用條件。
-          </p>
-          <p>
-            <strong>超商繳費：</strong>
-            在7-11、全家、萊爾富、OK等四大超商均可使用信用卡繳稅，單筆上限為NT$ 30,000。若稅額超過，可拆分多張繳款單。
-          </p>
-          <p>
-            <strong>分期付款提醒：</strong>
-            零利率分期通常要求最低稅額，且大部分銀行提供3-12期不等的分期選擇，請確認您的信用卡是否符合資格。
-          </p>
+      <section className="max-w-4xl mx-auto px-4 pb-12">
+        <div className="bg-white/50 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/60 p-8">
+          <h2 className="text-2xl font-bold mb-6 text-slate-800">繳稅注意事項</h2>
+          <div className="space-y-4 text-slate-600">
+            <p>
+              <strong className="text-slate-700">綜所稅繳納期間：</strong>每年5月1日至6月30日
+            </p>
+            <p>
+              <strong className="text-slate-700">信用卡繳稅優勢：</strong>
+              使用信用卡繳稅可享有現金回饋、零利率分期或積點回饋等優惠，但需注意各卡片的回饋上限和適用條件。
+            </p>
+            <p>
+              <strong className="text-slate-700">超商繳費：</strong>
+              在7-11、全家、萊爾富、OK等四大超商均可使用信用卡繳稅，單筆上限為NT$ 30,000。若稅額超過，可拆分多張繳款單。
+            </p>
+            <p>
+              <strong className="text-slate-700">分期付款提醒：</strong>
+              零利率分期通常要求最低稅額，且大部分銀行提供3-12期不等的分期選擇，請確認您的信用卡是否符合資格。
+            </p>
+          </div>
         </div>
       </section>
     </Layout>

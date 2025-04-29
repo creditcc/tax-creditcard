@@ -147,7 +147,7 @@ export const creditCards = [
   },
   {
     id: 11,
-    name: "新光 悠遊聯名卡",
+    name: "新光悠遊聯名卡",
     specialRequirements: null,
     bank: "新光銀行",
     cashbackRate: 0.04, // 4%
@@ -339,8 +339,8 @@ export const creditCards = [
   },
   {
     id: 23,
-    name: "樂天銀行 樂翔卡",
-    specialRequirements: null,
+    name: "樂天銀行御璽卡",
+    specialRequirements: "年費3000元",
     bank: "樂天銀行",
     cashbackRate: 0.022, // Approx. 2.2% from 18元/哩
     cashbackLimit: 2500, // Based on 御璽卡 lower tier
@@ -355,7 +355,7 @@ export const creditCards = [
   },
   {
     id: 24,
-    name: "上海商銀 信用卡",
+    name: "上海商銀信用卡",
     specialRequirements: null,
     bank: "上海商銀",
     cashbackRate: 0.005, // 0.5%
@@ -371,7 +371,7 @@ export const creditCards = [
   },
   {
     id: 25,
-    name: "聯邦銀行 吉鶴卡",
+    name: "聯邦銀行吉鶴卡",
     specialRequirements: null,
     bank: "聯邦銀行",
     cashbackRate: 0.002, // 0.2%
@@ -403,7 +403,7 @@ export const creditCards = [
   },
   {
     id: 27,
-    name: "玉山銀行 星宇航空聯名卡",
+    name: "玉山銀行星宇航空聯名卡",
     specialRequirements: null,
     bank: "玉山銀行",
     cashbackRate: 0.0025, // Approx. 0.25% from 200元/哩 (using 0.5元/哩 estimate from table)
@@ -419,7 +419,7 @@ export const creditCards = [
   },
   {
     id: 28,
-    name: "星展銀行 信用卡",
+    name: "星展銀行信用卡",
     specialRequirements: "豐盛理財會員",
     bank: "星展銀行",
     cashbackRate: 0.0038, // 0.38% for 豐盛理財
@@ -435,7 +435,7 @@ export const creditCards = [
   },
   {
     id: 29,
-    name: "星展銀行 信用卡",
+    name: "星展銀行信用卡",
     specialRequirements: "豐盛私人客戶",
     bank: "星展銀行",
     cashbackRate: 0.0068, // 0.68% for 豐盛私人
@@ -451,7 +451,7 @@ export const creditCards = [
   },
   {
     id: 30,
-    name: "玉山銀行 信用卡",
+    name: "玉山銀行信用卡",
     specialRequirements: "一般",
     bank: "玉山銀行",
     cashbackRate: 0.002, // 0.2% for "不限" (assuming this means general customers or lowest tier)
@@ -467,7 +467,7 @@ export const creditCards = [
   },
   {
     id: 31,
-    name: "玉山銀行 信用卡",
+    name: "玉山銀行信用卡",
     specialRequirements: "登峰/菁英理財會員",
     bank: "玉山銀行",
     cashbackRate: 0.0035, // 0.35%
@@ -483,7 +483,7 @@ export const creditCards = [
   },
   {
     id: 32,
-    name: "玉山銀行 信用卡",
+    name: "玉山銀行信用卡",
     specialRequirements: "私銀會員",
     bank: "玉山銀行",
     cashbackRate: 0.004, // 0.4%
@@ -499,7 +499,7 @@ export const creditCards = [
   },
   {
     id: 33,
-    name: "永豐銀行 永傳世界卡",
+    name: "永豐銀行永傳世界卡",
     specialRequirements: null,
     bank: "永豐銀行",
     cashbackRate: 0.0038, // 0.38%
@@ -515,7 +515,7 @@ export const creditCards = [
   },
   {
     id: 34,
-    name: "國泰世華 信用卡",
+    name: "國泰世華信用卡",
     specialRequirements: "邀請制, 稅額30萬+",
     bank: "國泰世華",
     cashbackRate: 0.003, // 0.3%
@@ -531,7 +531,7 @@ export const creditCards = [
   },
   {
     id: 35,
-    name: "國泰世華 信用卡",
+    name: "國泰世華信用卡",
     specialRequirements: "邀請制, 稅額100萬+",
     bank: "國泰世華",
     cashbackRate: 0.0035, // 0.35%
@@ -563,7 +563,7 @@ export const creditCards = [
   },
   {
     id: 37,
-    name: "富邦銀行 信用卡",
+    name: "富邦銀行信用卡",
     specialRequirements: "本行存戶且稅額30萬+",
     bank: "富邦銀行",
     cashbackRate: 0.0036, // 0.36%
@@ -579,7 +579,7 @@ export const creditCards = [
   },
   {
     id: 38,
-    name: "華南銀行 信用卡",
+    name: "華南銀行信用卡",
     specialRequirements: "領航會員-夢享家",
     bank: "華南銀行",
     cashbackRate: 0.002, // 0.2%
@@ -595,7 +595,7 @@ export const creditCards = [
   },
   {
     id: 39,
-    name: "華南銀行 信用卡",
+    name: "華南銀行信用卡",
     specialRequirements: "領航會員-理享家",
     bank: "華南銀行",
     cashbackRate: 0.0025, // 0.25%
@@ -611,7 +611,7 @@ export const creditCards = [
   },
   {
     id: 40,
-    name: "華南銀行 信用卡",
+    name: "華南銀行信用卡",
     specialRequirements: "領航會員-獨享家",
     bank: "華南銀行",
     cashbackRate: 0.003, // 0.3%
@@ -627,7 +627,7 @@ export const creditCards = [
   },
   {
     id: 41,
-    name: "華南銀行 信用卡",
+    name: "華南銀行信用卡",
     specialRequirements: "領航會員-睿享家",
     bank: "華南銀行",
     cashbackRate: 0.0035, // 0.35%
@@ -643,7 +643,7 @@ export const creditCards = [
   },
   {
     id: 42,
-    name: "合作金庫 信用卡",
+    name: "合作金庫信用卡",
     specialRequirements: "一般卡",
     bank: "合作金庫",
     cashbackRate: 0.0018, // 0.18%
@@ -659,7 +659,7 @@ export const creditCards = [
   },
   {
     id: 43,
-    name: "合作金庫 信用卡",
+    name: "合作金庫信用卡",
     specialRequirements: "中台卡/國防卡",
     bank: "合作金庫",
     cashbackRate: 0.0025, // 0.25%
@@ -675,7 +675,7 @@ export const creditCards = [
   },
   {
     id: 44,
-    name: "合作金庫 信用卡",
+    name: "合作金庫信用卡",
     specialRequirements: "頂級卡",
     bank: "合作金庫",
     cashbackRate: 0.0036, // 0.36%
@@ -691,7 +691,7 @@ export const creditCards = [
   },
   {
     id: 45,
-    name: "永豐銀行 信用卡",
+    name: "永豐銀行信用卡",
     specialRequirements: "永聚會員",
     bank: "永豐銀行",
     cashbackRate: 0.0015, // 0.15%
@@ -707,7 +707,7 @@ export const creditCards = [
   },
   {
     id: 46,
-    name: "永豐銀行 信用卡",
+    name: "永豐銀行信用卡",
     specialRequirements: "永富會員",
     bank: "永豐銀行",
     cashbackRate: 0.0025, // 0.25%
@@ -723,7 +723,7 @@ export const creditCards = [
   },
   {
     id: 47,
-    name: "永豐銀行 信用卡",
+    name: "永豐銀行信用卡",
     specialRequirements: "永傳會員",
     bank: "永豐銀行",
     cashbackRate: 0.0038, // 0.38%
@@ -739,7 +739,7 @@ export const creditCards = [
   },
   {
     id: 48,
-    name: "玉山銀行 信用卡",
+    name: "玉山銀行信用卡",
     specialRequirements: "一般卡 Tier 2",
     bank: "玉山銀行",
     cashbackRate: 0.001, // 0.1%
@@ -755,7 +755,7 @@ export const creditCards = [
   },
   {
     id: 49,
-    name: "玉山銀行 U Bear 卡 / Pi 拍錢包卡等",
+    name: "玉山銀行 U Bear卡 / Pi拍錢包卡等",
     specialRequirements: "原 Unicard",
     bank: "玉山銀行",
     cashbackRate: 0.002, // 0.2%
@@ -764,14 +764,14 @@ export const creditCards = [
     maxTaxAmount: 0,
     requireRegistration: false, // Not mentioned
     registrationLink: "https://event.esunbank.com.tw/credit/tax/index.html",
-    notes: "限 U Bear 卡/Pi 拍錢包卡等 (原 Unicard 類別)。享0.2%現金回饋，無上限。回饋與分期不可共用。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
+    notes: "限 U Bear卡/Pi拍錢包卡等 (原Unicard類別)。享0.2%現金回饋，無上限。回饋與分期不可共用。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
     installmentAvailable: true, // From initial data (ID 6), but not combinable
     convenienceStore: false,
     mobilePay: false
   },
   {
     id: 50,
-    name: "玉山銀行 信用卡",
+    name: "玉山銀行信用卡",
     specialRequirements: "稅額100萬+",
     bank: "玉山銀行",
     cashbackRate: 0.003, // 0.3%
@@ -787,7 +787,7 @@ export const creditCards = [
   },
   {
     id: 51,
-    name: "永豐銀行 永富世界卡",
+    name: "永豐銀行永富世界卡",
     specialRequirements: null,
     bank: "永豐銀行",
     cashbackRate: 0.0025, // 0.25%
@@ -803,7 +803,7 @@ export const creditCards = [
   },
   {
     id: 52,
-    name: "華南銀行 信用卡",
+    name: "華南銀行信用卡",
     specialRequirements: "消費滿額贈點",
     bank: "華南銀行",
     cashbackRate: 0.0, // Rate varies significantly, difficult to represent simply
@@ -819,7 +819,7 @@ export const creditCards = [
   },
   {
     id: 53,
-    name: "第一銀行 信用卡",
+    name: "第一銀行信用卡",
     specialRequirements: null,
     bank: "第一銀行",
     cashbackRate: 0.002, // 0.2%
@@ -835,7 +835,7 @@ export const creditCards = [
   },
   {
     id: 54,
-    name: "中信 和泰聯名卡",
+    name: "中信和泰聯名卡",
     specialRequirements: null,
     bank: "中國信託",
     cashbackRate: 0.002, // 0.2%
@@ -851,7 +851,7 @@ export const creditCards = [
   },
   {
     id: 55,
-    name: "中信 中華航空聯名卡",
+    name: "中信中華航空聯名卡",
     specialRequirements: null,
     bank: "中國信託",
     cashbackRate: 0.0017, // Approx 0.17% (using 0.52元/哩 estimate from table)
@@ -867,7 +867,7 @@ export const creditCards = [
   },
   {
     id: 56,
-    name: "永豐銀行 幣倍卡",
+    name: "永豐銀行幣倍卡",
     specialRequirements: null,
     bank: "永豐銀行",
     cashbackRate: 0.0015, // 0.15%
@@ -883,7 +883,7 @@ export const creditCards = [
   },
   {
     id: 57,
-    name: "永豐銀行 信用卡",
+    name: "永豐銀行信用卡",
     specialRequirements: "新戶/舊戶回饋",
     bank: "永豐銀行",
     cashbackRate: 0.0015, // 0.15%
@@ -899,7 +899,7 @@ export const creditCards = [
   },
   {
     id: 58,
-    name: "中信 LINE Pay信用卡/簽帳卡",
+    name: "中信LINEPay信用卡",
     specialRequirements: null,
     bank: "中國信託",
     cashbackRate: 0.001, // 0.1%
@@ -915,7 +915,7 @@ export const creditCards = [
   },
   {
     id: 59,
-    name: "中信 商旅鈦金卡",
+    name: "中信商旅鈦金卡",
     specialRequirements: null,
     bank: "中國信託",
     cashbackRate: 0.001, // 0.1% (Assuming same rate as LINE Pay card based on grouping)
@@ -931,7 +931,7 @@ export const creditCards = [
   },
   {
     id: 60,
-    name: "彰化銀行 信用卡",
+    name: "彰化銀行信用卡",
     specialRequirements: "早鳥",
     bank: "彰化銀行",
     cashbackRate: 0.001, // 0.1%
@@ -947,7 +947,7 @@ export const creditCards = [
   },
   {
     id: 61,
-    name: "彰化銀行 信用卡",
+    name: "彰化銀行信用卡",
     specialRequirements: "VIP",
     bank: "彰化銀行",
     cashbackRate: 0.002, // 0.2%
@@ -963,8 +963,8 @@ export const creditCards = [
   },
   {
     id: 23,
-    name: "樂天銀行 無限卡",
-    specialRequirements: null,
+    name: "樂天銀行無限卡",
+    specialRequirements: "年費15000元",
     bank: "樂天銀行",
     cashbackRate: 0.022, 
     cashbackLimit: 5500, 
@@ -1292,7 +1292,7 @@ export const convenienceStoreOptions = [
     cashbackRate: 0.04, // 4%
     cashbackLimit: 200, // 每季上限200元
     maxAmount: 1000, // FamiPay單筆上限1000元
-    notes: "需登錄，每季限3,500名，需在全家使用FamiPay支付，需季消費滿5000元，回饋為等值禮券，回饋期限至2025/6/30",
+    notes: "FamiPay單筆上限1000元，需登錄，每季限3,500名，需在全家使用FamiPay支付，需季消費滿5000元，回饋為等值禮券，回饋期限至2025/6/30",
     chains: ["family"]
   }
 ];

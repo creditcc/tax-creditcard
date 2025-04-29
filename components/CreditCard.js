@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CreditCard = ({ card, taxAmount, isHighlighted }) => {
+const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
   // 从credit card数据中确定分期期数
   const getInstallmentPeriod = () => {
     // 直接从card对象获取期数信息
@@ -108,44 +108,8 @@ const CreditCard = ({ card, taxAmount, isHighlighted }) => {
   const renderFeatures = () => {
     const features = [];
     
-    if (card.cashbackRate > 0) {
-      features.push(
-        <div key="cashback" className="mb-2">
-          <div className="text-sm text-gray-600 dark:text-gray-400">回饋率</div>
-          <div className="font-semibold">{(card.cashbackRate * 100).toFixed(2)}%</div>
-        </div>
-      );
-      
-      features.push(
-        <div key="estimatedCashback" className="mb-2">
-          <div className="text-sm text-gray-600 dark:text-gray-400">預估回饋</div>
-          <div className="font-semibold">NT$ {cashbackAmount.toLocaleString()}</div>
-        </div>
-      );
-      
-      features.push(
-        <div key="cashbackLimit" className="mb-2">
-          <div className="text-sm text-gray-600 dark:text-gray-400">回饋上限</div>
-          <div className="font-semibold">NT$ {card.cashbackLimit.toLocaleString()}</div>
-        </div>
-      );
-    }
-    
-    if (card.installmentAvailable) {
-      features.push(
-        <div key="installmentPeriod" className="mb-2">
-          <div className="text-sm text-gray-600 dark:text-gray-400">分期期數</div>
-          <div className="font-semibold">{installmentPeriod}期</div>
-        </div>
-      );
-      
-      features.push(
-        <div key="installmentSavings" className="mb-2">
-          <div className="text-sm text-gray-600 dark:text-gray-400">分期收益 (1.5% APR)</div>
-          <div className="font-semibold">NT$ {installmentSavings.toLocaleString()}</div>
-        </div>
-      );
-      
+    // 最低稅額
+    if (card.minTaxAmount !== undefined) {
       features.push(
         <div key="minTaxAmount" className="mb-2">
           <div className="text-sm text-gray-600 dark:text-gray-400">最低稅額</div>
@@ -153,31 +117,94 @@ const CreditCard = ({ card, taxAmount, isHighlighted }) => {
         </div>
       );
     }
-    
-    if (card.convenienceStore) {
+
+    // 最高稅額
+    if (card.maxTaxAmount !== undefined) {
       features.push(
-        <div key="maxConvenienceAmount" className="mb-2">
-          <div className="text-sm text-gray-600 dark:text-gray-400">超商上限</div>
-          <div className="font-semibold">NT$ 30,000</div>
+        <div key="maxTaxAmount" className="mb-2">
+          <div className="text-sm text-gray-600 dark:text-gray-400">最高稅額</div>
+          <div className="font-semibold">NT$ {card.maxTaxAmount.toLocaleString()}</div>
         </div>
       );
     }
-    
+
+    // 現金回饋
+    if (card.cashbackRate !== undefined) {
+      const cashback = Math.min(
+        taxAmount * card.cashbackRate,
+        card.cashbackLimit || Infinity
+      );
+      features.push(
+        <div key="cashback" className="mb-2">
+          <div className="text-sm text-gray-600 dark:text-gray-400">預估回饋</div>
+          <div className="font-semibold">
+            NT$ {cashback.toLocaleString()} ({(card.cashbackRate * 100).toFixed(2)}%)
+          </div>
+        </div>
+      );
+    }
+
+    // 分期資訊
+    if (card.installmentAvailable) {
+      features.push(
+        <div key="installment" className="mb-2">
+          <div className="text-sm text-gray-600 dark:text-gray-400">分期資訊</div>
+          <div className="font-semibold">
+            {card.installmentPeriods}期
+            {card.handlingFee !== undefined && 
+              ` (手續費 ${(card.handlingFee * 100).toFixed(2)}%)`
+            }
+          </div>
+          {card.monthlyPayment !== undefined && (
+            <div className="text-sm text-gray-500">
+              每月還款 NT$ {Math.round(card.monthlyPayment).toLocaleString()}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // 超商繳費
+    if (card.convenienceStore) {
+      features.push(
+        <div key="convenience" className="mb-2">
+          <div className="text-sm text-gray-600 dark:text-gray-400">超商繳費</div>
+          <div className="font-semibold">可用</div>
+          <div className="text-sm text-gray-500">單筆上限 NT$ 30,000</div>
+        </div>
+      );
+    }
+
+    // APR 收益（僅在分期視圖中顯示）
+    if (viewMode === 'installment' && card.aprSavings !== undefined) {
+      features.push(
+        <div key="aprSavings" className="mb-2">
+          <div className="text-sm text-gray-600 dark:text-gray-400">APR 1.5% 收益</div>
+          <div className="font-semibold">NT$ {card.aprSavings.toLocaleString()}</div>
+        </div>
+      );
+    }
+
     return features;
   };
   
   // 拆單策略說明
   const renderSplitAdvice = () => {
     if (card.convenienceStore) {
-      const maxSplitTimes = Math.min(Math.ceil(taxAmount / 30000), 5);
-      const maxSplitAmount = Math.min(maxSplitTimes * 30000, taxAmount);
-      const totalCashback = Math.min(card.cashbackLimit, card.cashbackRate * maxSplitAmount);
+      // 每張卡只能拆一次，金額為回饋上限或30000中較小值
+      const maxAmount = Math.min(30000, 
+        card.cashbackLimit ? card.cashbackLimit / card.cashbackRate : 30000
+      );
+      const totalCashback = Math.min(
+        maxAmount * card.cashbackRate,
+        card.cashbackLimit || Infinity
+      );
       
       return (
         <div className="mt-3 pt-3 border-t border-gray-200 text-sm text-gray-600 dark:text-gray-400">
           <div className="font-medium">拆單策略效益:</div>
-          <div>最多拆{maxSplitTimes}次，總金額NT${maxSplitAmount.toLocaleString()}</div>
-          <div>預估回饋NT${totalCashback.toLocaleString()}</div>
+          <div>建議刷卡金額 NT${maxAmount.toLocaleString()}</div>
+          <div>預估回饋 NT${totalCashback.toLocaleString()}</div>
         </div>
       );
     }
@@ -186,30 +213,47 @@ const CreditCard = ({ card, taxAmount, isHighlighted }) => {
   };
 
   return (
-    <div className={`p-4 rounded-lg shadow-md ${isHighlighted ? 'border-2 border-indigo-500 bg-indigo-50 dark:bg-indigo-900' : 'bg-white dark:bg-gray-800'}`}>
+    <div className={`p-4 rounded-lg shadow-md ${
+      isHighlighted ? 'border-2 bg-white/50' : 'bg-white'
+    } ${
+      viewMode === 'split' ? 'border-purple-500 bg-purple-50/50' :
+      viewMode === 'convenience' ? 'border-green-500 bg-green-50/50' :
+      viewMode === 'installment' ? 'border-orange-500 bg-orange-50/50' :
+      viewMode === 'cashback' ? 'border-yellow-500 bg-yellow-50/50' :
+      'border-gray-200'
+    }`}>
       {isHighlighted && (
         <div className="text-center mb-2">
-          <span className="inline-block px-3 py-1 text-xs font-semibold bg-indigo-500 text-white rounded-full">
+          <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full ${
+            viewMode === 'split' ? 'bg-purple-500 text-white' :
+            viewMode === 'convenience' ? 'bg-green-500 text-white' :
+            viewMode === 'installment' ? 'bg-orange-500 text-white' :
+            viewMode === 'cashback' ? 'bg-yellow-500 text-white' :
+            'bg-gray-500 text-white'
+          }`}>
             推薦選擇
           </span>
         </div>
       )}
       
       <div className="mb-4">
-        <h3 className="text-lg font-bold mb-1 text-gray-900 dark:text-white">{card.bank} {card.name}</h3>
+        <h3 className="text-lg font-bold mb-1 text-gray-900">{card.bank} {card.name}</h3>
         <div className="flex flex-wrap">{renderTags()}</div>
       </div>
       
-      <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+      <div className="space-y-2">
         {renderFeatures()}
       </div>
       
       {renderSplitAdvice()}
       
-      {card.notes && (
-        <div className="mt-3 pt-3 border-t border-gray-200 text-sm text-gray-600 dark:text-gray-400">
+      {(card.specialRequirements || card.notes) && (
+        <div className="mt-3 pt-3 border-t border-gray-200 text-sm text-gray-600">
           <div className="font-medium">注意事項:</div>
-          <div>{card.notes}</div>
+          <div>
+            {card.specialRequirements && <div>{card.specialRequirements}</div>}
+            {card.notes && <div>{card.notes}</div>}
+          </div>
         </div>
       )}
       
@@ -219,7 +263,7 @@ const CreditCard = ({ card, taxAmount, isHighlighted }) => {
             href={card.registrationLink} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-block text-sm text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+            className="inline-block text-sm text-indigo-600 hover:text-indigo-800"
           >
             前往登錄活動 →
           </a>
