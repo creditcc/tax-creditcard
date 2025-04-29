@@ -112,46 +112,12 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
   
   // 渲染卡片特色
   const renderFeatures = () => {
+    if (!card) return null;
+
     const features = [];
-    
-    // 最低稅額
-    if (card.minTaxAmount !== undefined) {
-      features.push(
-        <div key="minTaxAmount" className="mb-2">
-          <div className="text-sm text-gray-600 dark:text-gray-400">最低稅額</div>
-          <div className="font-semibold">NT$ {card.minTaxAmount.toLocaleString()}</div>
-        </div>
-      );
-    }
 
-    // 最高稅額
-    if (card.maxTaxAmount !== undefined) {
-      features.push(
-        <div key="maxTaxAmount" className="mb-2">
-          <div className="text-sm text-gray-600 dark:text-gray-400">最高稅額</div>
-          <div className="font-semibold">NT$ {card.maxTaxAmount.toLocaleString()}</div>
-        </div>
-      );
-    }
-
-    // 現金回饋
-    if (card.cashbackRate !== undefined) {
-      const cashback = Math.round(Math.min(
-        taxAmount * card.cashbackRate,
-        card.cashbackLimit || Infinity
-      ));
-      features.push(
-        <div key="cashback" className="mb-2">
-          <div className="text-sm text-gray-600 dark:text-gray-400">預估回饋</div>
-          <div className="font-semibold">
-            NT$ {cashback.toLocaleString()} ({(card.cashbackRate * 100).toFixed(2)}%)
-          </div>
-        </div>
-      );
-    }
-
-    // 分期資訊
-    if (card.installmentAvailable) {
+    // 只在分期零利率 tab 时顯示分期相關資訊
+    if (viewMode === 'installment') {
       features.push(
         <div key="installment" className="mb-2">
           <div className="text-sm text-gray-600 dark:text-gray-400">分期資訊</div>
@@ -170,7 +136,40 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
       );
     }
 
-    // 超商繳費
+    // 其他功能保持不變
+    if (card.minTaxAmount !== undefined) {
+      features.push(
+        <div key="minTaxAmount" className="mb-2">
+          <div className="text-sm text-gray-600 dark:text-gray-400">最低稅額</div>
+          <div className="font-semibold">NT$ {card.minTaxAmount.toLocaleString()}</div>
+        </div>
+      );
+    }
+
+    if (card.maxTaxAmount !== undefined) {
+      features.push(
+        <div key="maxTaxAmount" className="mb-2">
+          <div className="text-sm text-gray-600 dark:text-gray-400">最高稅額</div>
+          <div className="font-semibold">NT$ {card.maxTaxAmount.toLocaleString()}</div>
+        </div>
+      );
+    }
+
+    if (card.cashbackRate !== undefined) {
+      const cashback = Math.round(Math.min(
+        taxAmount * card.cashbackRate,
+        card.cashbackLimit || Infinity
+      ));
+      features.push(
+        <div key="cashback" className="mb-2">
+          <div className="text-sm text-gray-600 dark:text-gray-400">預估回饋</div>
+          <div className="font-semibold">
+            NT$ {cashback.toLocaleString()} ({(card.cashbackRate * 100).toFixed(2)}%)
+          </div>
+        </div>
+      );
+    }
+
     if (card.convenienceStore) {
       features.push(
         <div key="convenience" className="mb-2">
@@ -180,16 +179,6 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
         </div>
       );
     }
-
-    // APR 收益（僅在分期視圖中顯示）
-    // if (viewMode === 'installment' && card.aprSavings !== undefined) {
-    //   features.push(
-    //     <div key="aprSavings" className="mb-2">
-    //       <div className="text-sm text-gray-600 dark:text-gray-400">APR 1.5% 收益</div>
-    //       <div className="font-semibold">NT$ {card.aprSavings.toLocaleString()}</div>
-    //     </div>
-    //   );
-    // }
 
     return features;
   };

@@ -143,9 +143,9 @@ export const creditCards = [
     specialRequirements: null,
     bank: "富邦銀行",
     cashbackRate: 0.02, // 2% (1%無上限+1%上限600元/期)
-    cashbackLimit: 600, // 最高加碼回饋600元
+    cashbackLimit: 1200, // 最高加碼回饋600元
     minTaxAmount: 5000, // 需月消費滿5000元
-    maxTaxAmount: 30000, // 便利商店上限
+    maxTaxAmount: 60000, // 便利商店上限
     requireRegistration: false,
     registrationLink: "https://www.fubon.com/",
     notes: "主要針對房屋稅，所得稅適用性待確認，需在7-11使用OPEN錢包支付，回饋期限至2025/6/30",
@@ -1342,9 +1342,9 @@ export const convenienceStoreOptions = [
     bank: "富邦銀行",
     cards: ["OpenPossible 卡"],
     cashbackRate: 0.02, // 2% (1%無上限+1%上限600元/期)
-    cashbackLimit: 600, // 每期上限600元
-    maxAmount: 30000, // 便利商店上限
-    notes: "主要針對房屋稅，所得稅適用性待確認，需在7-11使用OPEN錢包支付，需月消費滿5000元，回饋期限至2025/6/30",
+    cashbackLimit: 1200, // 每期上限600元
+    maxAmount: 60000, // 便利商店上限
+    notes: "(1%無上限+1%上限600元/期，主要針對房屋稅，所得稅適用性待確認，需在7-11使用OPEN錢包支付，需月消費滿5000元，回饋期限至2025/6/30",
     chains: ["7-11"]
   },
   {

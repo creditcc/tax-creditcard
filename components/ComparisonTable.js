@@ -7,7 +7,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
   const [optimalCombination, setOptimalCombination] = useState([]);
   const [installmentSavings, setInstallmentSavings] = useState([]);
   const [splitStrategy, setSplitStrategy] = useState(null);
-  const [selectedPeriod, setSelectedPeriod] = useState('all');
+  const [selectedPeriod, setSelectedPeriod] = useState('12'); // 設置默認為12期
   const [annualRate, setAnnualRate] = useState(0.015);
   const [annualRateInput, setAnnualRateInput] = useState('1.5');
 
@@ -438,32 +438,35 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-3 text-left border whitespace-nowrap">信用卡</th>
-              <th className="p-3 text-left border whitespace-nowrap">額外條件</th>
-              <th className="p-3 text-left border whitespace-nowrap">最低稅額</th>
-              <th className="p-3 text-left border whitespace-nowrap">最高稅額</th>
-              <th className="p-3 text-left border whitespace-nowrap">回饋率</th>
-              <th className="p-3 text-left border whitespace-nowrap">可獲回饋</th>
+              <th className="p-3 text-center border whitespace-nowrap">信用卡</th>
+              <th className="p-3 text-center border whitespace-nowrap">回饋率</th>
+              <th className="p-3 text-center border whitespace-nowrap">可獲回饋</th>
+              <th className="p-3 text-center border whitespace-nowrap">額外條件</th>
+              <th className="p-3 text-center border whitespace-nowrap">最低稅額</th>
+              <th className="p-3 text-center border whitespace-nowrap">最高稅額</th>
             </tr>
           </thead>
           <tbody>
-            {eligibleCards.map((card, index) => {
-              const cashback = calculateActualCashback(card);
-              
-              return (
-                <tr key={card.id} className={index === 0 ? "bg-yellow-50" : ""}>
-                  <td className="p-3 border whitespace-nowrap">
-                    {index === 0 && <span className="inline-block bg-yellow-500 text-white text-xs px-2 py-1 rounded mr-2">推薦</span>}
-                    {card.name}
-                  </td>
-                  <td className="p-3 border">{card.specialRequirements}</td>
-                  <td className="p-3 border whitespace-nowrap">NT$ {card.minTaxAmount.toLocaleString()}</td>
-                  <td className="p-3 border whitespace-nowrap">NT$ {card.maxTaxAmount.toLocaleString()}</td>
-                  <td className="p-3 border whitespace-nowrap">{(card.cashbackRate * 100).toFixed(2)}%</td>
-                  <td className="p-3 border whitespace-nowrap">NT$ {cashback.toLocaleString()}</td>
-                </tr>
-              );
-            })}
+            {eligibleCards.map((card, index) => (
+              <tr key={card.id} className={index === 0 ? "bg-yellow-50" : ""}>
+                <td className="p-3 border whitespace-nowrap truncate">
+                  {index === 0 && <span className="inline-block bg-yellow-500 text-white text-xs px-2 py-1 rounded mr-2">推薦</span>}
+                  {card.name}
+                </td>
+                <td className="p-3 border whitespace-nowrap">{(card.cashbackRate * 100).toFixed(2)}%</td>
+                <td className="p-3 border whitespace-nowrap">
+                  NT$ {calculateActualCashback(card).toLocaleString()}
+                  {card.cashbackLimit && (
+                    <span className="text-xs text-gray-500 ml-2">
+                      (上限: NT$ {card.cashbackLimit.toLocaleString()})
+                    </span>
+                  )}
+                </td>
+                <td className="p-3 border whitespace-nowrap truncate">{card.specialRequirements || '-'}</td>
+                <td className="p-3 border whitespace-nowrap">NT$ {card.minTaxAmount.toLocaleString()}</td>
+                <td className="p-3 border whitespace-nowrap">NT$ {card.maxTaxAmount.toLocaleString()}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -494,13 +497,13 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
       <div>
         <div className="mb-4 flex flex-wrap gap-4 items-end">
           <div className="flex-1 min-w-[200px]">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-base font-medium text-gray-700 mb-1">
               分期期數
             </label>
             <select
               value={selectedPeriod}
               onChange={(e) => setSelectedPeriod(e.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+              className="w-full rounded-md border border-gray-300 px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 h-10"
             >
               <option value="all">全部期數</option>
               {availablePeriods.map(period => (
@@ -509,7 +512,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
             </select>
           </div>
           <div className="flex-1 min-w-[200px]">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-base font-medium text-gray-700 mb-1">
               活存年利率 (APR)
             </label>
             <div className="flex items-center">
@@ -534,7 +537,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                     setAnnualRate(num / 100);
                   }
                 }}
-                className="w-24 rounded-md border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
+                className="w-24 rounded-md border border-gray-300 px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 h-10"
               />
               <span className="ml-2">%</span>
             </div>
@@ -546,20 +549,20 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
             <table className="w-full border-collapse text-sm md:text-base">
               <thead>
                 <tr className="bg-gray-100">
-                  <th className="p-2 md:p-3 text-left border whitespace-nowrap">信用卡</th>
-                  <th className="p-2 md:p-3 text-left border whitespace-nowrap">期數</th>
-                  <th className="p-2 md:p-3 text-left border whitespace-nowrap">每月還款</th>
-                  <th className="p-2 md:p-3 text-left border whitespace-nowrap">最低稅額</th>
-                  <th className="p-2 md:p-3 text-left border whitespace-nowrap">
+                  <th className="p-2 md:p-3 text-center border whitespace-nowrap">信用卡</th>
+                  <th className="p-2 md:p-3 text-center border whitespace-nowrap">期數</th>
+                  <th className="p-2 md:p-3 text-center border whitespace-nowrap">每月還款</th>
+                  <th className="p-2 md:p-3 text-center border whitespace-nowrap">最低稅額</th>
+                  <th className="p-2 md:p-3 text-center border whitespace-nowrap">
                     年利率 {(annualRate * 100).toFixed(1)}% 收益
                     <span 
-                      className="ml-1 inline-block text-gray-500 cursor-help rounded-full border border-gray-400 w-4 h-4 text-center"
+                      className="ml-1 inline-flex items-center justify-center text-gray-500 cursor-help rounded-full border border-gray-400 w-4 h-4"
                       title={`以活存年利率：${(annualRate * 100).toFixed(1)}% 計算，此計算僅為存款端的利息「收益」，並未考慮政府對所得稅分期付款本身是否可能收取額外費用或利息`}
                     >
                       ?
                     </span>
                   </th>
-                  <th className="p-2 md:p-3 text-left border whitespace-nowrap">注意事項</th>
+                  <th className="p-2 md:p-3 text-center border whitespace-nowrap">注意事項</th>
                 </tr>
               </thead>
               <tbody>
@@ -576,7 +579,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                   const uniqueKey = `${option.cardId}-${option.months}-${option.bank}`;
                   return (
                     <tr key={option.id} className={index === 0 ? "bg-orange-50" : ""}>
-                      <td className="p-2 md:p-3 border whitespace-nowrap">
+                      <td className="p-2 md:p-3 border whitespace-nowrap truncate">
                         {index === 0 && <span className="inline-block bg-orange-500 text-white text-xs px-2 py-1 rounded mr-2">推薦</span>}
                         {option.cardName}{creditCard?.specialRequirements ? ` (${creditCard.specialRequirements})` : ''}
                       </td>
@@ -586,7 +589,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                       <td className="p-2 md:p-3 border whitespace-nowrap">
                         NT$ {option.aprSavings.toLocaleString()}
                       </td>
-                      <td className="p-2 md:p-3 border">
+                      <td className="p-2 md:p-3 border whitespace-nowrap truncate">
                         {option.specialRequirements || '無特殊要求'}
                       </td>
                     </tr>
@@ -616,24 +619,31 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           <table className="w-full border-collapse text-sm md:text-base">
             <thead>
               <tr className="bg-gray-100">
-                <th className="p-2 md:p-3 text-left border whitespace-nowrap">信用卡</th>
-                <th className="p-2 md:p-3 text-left border whitespace-nowrap">回饋率</th>
-                <th className="p-2 md:p-3 text-left border whitespace-nowrap">可獲回饋</th>
-                <th className="p-2 md:p-3 text-left border whitespace-nowrap">建議刷卡金額</th>
-                <th className="p-2 md:p-3 text-left border whitespace-nowrap">繳費順序</th>
+                <th className="p-2 md:p-3 text-center border whitespace-nowrap">信用卡</th>
+                <th className="p-2 md:p-3 text-center border whitespace-nowrap">回饋率</th>
+                <th className="p-2 md:p-3 text-center border whitespace-nowrap">可獲回饋</th>
+                <th className="p-2 md:p-3 text-center border whitespace-nowrap">建議刷卡金額</th>
+                <th className="p-2 md:p-3 text-center border whitespace-nowrap">繳費順序</th>
               </tr>
             </thead>
             <tbody>
               {optimalCombination.map((card, index) => (
                 <tr key={card.id} className={index === 0 ? "bg-green-50" : ""}>
-                  <td className="p-2 md:p-3 border whitespace-nowrap">
+                  <td className="p-2 md:p-3 border whitespace-nowrap truncate">
                     {index === 0 && 
                       <span className="inline-block bg-green-500 text-white text-xs px-2 py-1 rounded mr-2">最高回饋</span>
                     }
                     {card.name}
                   </td>
                   <td className="p-2 md:p-3 border whitespace-nowrap">{(card.bestOption.cashbackRate * 100).toFixed(2)}%</td>
-                  <td className="p-2 md:p-3 border whitespace-nowrap">NT$ {card.cashback.toLocaleString()}</td>
+                  <td className="p-2 md:p-3 border whitespace-nowrap">
+                    NT$ {card.cashback.toLocaleString()}
+                    {card.bestOption.cashbackLimit && (
+                      <span className="text-xs text-gray-500 ml-2">
+                        (上限: NT$ {card.bestOption.cashbackLimit.toLocaleString()})
+                      </span>
+                    )}
+                  </td>
                   <td className="p-2 md:p-3 border whitespace-nowrap">NT$ {card.amountToUse.toLocaleString()}</td>
                   <td className="p-2 md:p-3 border whitespace-nowrap">第{card.cardNumber}筆</td>
                 </tr>
@@ -689,19 +699,26 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
               <table className="w-full border-collapse text-sm md:text-base">
                 <thead>
                   <tr className="bg-gray-100">
-                    <th className="p-2 md:p-3 text-left border whitespace-nowrap">信用卡</th>
-                    <th className="p-2 md:p-3 text-left border whitespace-nowrap">回饋率</th>
-                    <th className="p-2 md:p-3 text-left border whitespace-nowrap">可獲回饋</th>
-                    <th className="p-2 md:p-3 text-left border whitespace-nowrap">建議刷卡金額</th>
-                    <th className="p-2 md:p-3 text-left border whitespace-nowrap">繳費順序</th>
+                    <th className="p-2 md:p-3 text-center border whitespace-nowrap">信用卡</th>
+                    <th className="p-2 md:p-3 text-center border whitespace-nowrap">回饋率</th>
+                    <th className="p-2 md:p-3 text-center border whitespace-nowrap">可獲回饋</th>
+                    <th className="p-2 md:p-3 text-center border whitespace-nowrap">建議刷卡金額</th>
+                    <th className="p-2 md:p-3 text-center border whitespace-nowrap">繳費順序</th>
                   </tr>
                 </thead>
                 <tbody>
                   {splitStrategy.conveniencePortion.map((card, index) => (
                     <tr key={card.id}>
-                      <td className="p-2 md:p-3 border whitespace-nowrap">{card.name}</td>
+                      <td className="p-2 md:p-3 border whitespace-nowrap truncate">{card.name}</td>
                       <td className="p-2 md:p-3 border whitespace-nowrap">{(card.bestOption.cashbackRate * 100).toFixed(2)}%</td>
-                      <td className="p-2 md:p-3 border whitespace-nowrap">NT$ {card.cashback.toLocaleString()}</td>
+                      <td className="p-2 md:p-3 border whitespace-nowrap">
+                        NT$ {card.cashback.toLocaleString()}
+                        {card.bestOption.cashbackLimit && (
+                          <span className="text-xs text-gray-500 ml-2">
+                            (上限: NT$ {card.bestOption.cashbackLimit.toLocaleString()})
+                          </span>
+                        )}
+                      </td>
                       <td className="p-2 md:p-3 border whitespace-nowrap">NT$ {card.amountToUse.toLocaleString()}</td>
                       <td className="p-2 md:p-3 border whitespace-nowrap">第{card.cardNumber}筆</td>
                     </tr>
@@ -724,6 +741,11 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                   <p className="mb-1">使用 <strong>{splitStrategy.remainingStrategy.cardName}</strong> 繳納剩餘金額</p>
                   <p className="text-sm text-gray-600">
                     回饋率: {(splitStrategy.remainingStrategy.cashbackRate * 100).toFixed(2)}% | 可獲回饋: NT$ {splitStrategy.remainingStrategy.cashback.toLocaleString()}
+                    {splitStrategy.remainingStrategy.cashbackLimit && (
+                      <span className="text-xs text-gray-500 ml-2">
+                        (上限: NT$ {splitStrategy.remainingStrategy.cashbackLimit.toLocaleString()})
+                      </span>
+                    )}
                   </p>
                 </div>
               ) : (
@@ -841,8 +863,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                 {(() => {
                   const eligibleCards = creditCards.filter(card => 
                     card.cashbackRate > 0 &&
-                    (card.minTaxAmount === undefined || card.minTaxAmount <= taxAmount) &&
-                    (card.maxTaxAmount === undefined || card.maxTaxAmount >= taxAmount)
+                    (card.minTaxAmount === undefined || card.minTaxAmount <= taxAmount)
                   ).sort((a, b) => {
                     const aCashback = Math.min(
                       taxAmount * a.cashbackRate,

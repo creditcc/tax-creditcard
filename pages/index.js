@@ -17,7 +17,7 @@ export default function Home() {
 
   useEffect(() => {
     if (taxAmount > 0) {
-      // 根据税额确定策略
+      // 根據税額確定策略
       let strategy;
       if (taxAmount >= 500000) {
         strategy = 'installment';
@@ -28,22 +28,22 @@ export default function Home() {
       }
       setPaymentStrategy(strategy);
 
-      // 根据策略和税额过滤信用卡
+      // 根據策略和税額過濾信用卡
       let eligibleCards = [];
       
-      // 对于分期方案，只考虑符合最低金额要求的分期卡
+      // 對於分期方案，只考慮符合最低金額要求的分期卡
       if (strategy === 'installment') {
         eligibleCards = creditCards.filter(card => 
           card.installmentAvailable
         );
       } 
-      // 对于超商方案，只考虑不超过最高金额限制的超商卡
+      // 對於超商方案，只考慮不超過最高金額限制的超商卡
       else if (strategy === 'convenience') {
         eligibleCards = creditCards.filter(card => 
           card.convenienceStore
         );
       }
-      // 对于拆单策略，考虑所有符合条件的信用卡
+      // 對於拆單策略，考慮所有符合條件的信用卡
       else if (strategy === 'split') {
         const installmentCards = creditCards.filter(card => 
           card.installmentAvailable
@@ -59,13 +59,13 @@ export default function Home() {
           (card.maxTaxAmount === undefined || card.maxTaxAmount >= taxAmount)
         );
         
-        // 合并结果并去重
+        // 合併結果並去重
         const allEligibleCards = [...installmentCards, ...convenienceCards, ...cashbackOnlyCards];
         eligibleCards = allEligibleCards.filter((card, index, self) => 
           index === self.findIndex((c) => c.id === card.id)
         );
       }
-      // 一般现金回馈方案
+      // 一般現金回饋方案
       else {
         eligibleCards = creditCards.filter(card => 
           card.cashbackRate > 0 &&
@@ -85,7 +85,7 @@ export default function Home() {
     setTaxAmount(amount);
     setShowResults(true);
     
-    // 滚动到结果区域
+    // 滾動到結果區域
     if (resultsRef.current) {
       setTimeout(() => {
         resultsRef.current.scrollIntoView({ 
@@ -168,7 +168,7 @@ export default function Home() {
         <meta name="description" content="計算2025綜所稅最佳信用卡繳納方案，比較各銀行卡片回饋、零利率分期與超商繳費選項，為您節省最多稅金支出。" />
       </Head>
 
-      <section className="max-w-4xl mx-auto px-4 py-12">
+      <section className="max-w-5xl mx-auto px-4 py-12">
         <div className="text-center mb-16">
           <h1 className="text-4xl font-bold mb-6 bg-gradient-to-r from-indigo-600 to-blue-500 bg-clip-text text-transparent">
             2025綜所稅信用卡繳納計算
@@ -178,7 +178,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="max-w-2xl mx-auto mb-16">
+        <div className="max-w-3xl mx-auto mb-16">
           <div className="bg-white/50 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/60 p-8">
             <TaxForm onSubmit={handleTaxSubmit} />
           </div>
@@ -195,12 +195,12 @@ export default function Home() {
         )}
       </section>
 
-      <section className="max-w-4xl mx-auto px-4 pb-12">
+      <section className="max-w-5xl mx-auto px-4 pb-12">
         <div className="bg-white/50 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/60 p-8">
           <h2 className="text-2xl font-bold mb-6 text-slate-800">繳稅注意事項</h2>
           <div className="space-y-4 text-slate-600">
             <p>
-              <strong className="text-slate-700">綜所稅繳納期間：</strong>每年5月1日至6月30日
+              <strong className="text-slate-700">綜所稅繳納期間：</strong>2025年5月1日至6月30日
             </p>
             <p>
               <strong className="text-slate-700">信用卡繳稅優勢：</strong>
