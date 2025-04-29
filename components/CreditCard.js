@@ -182,14 +182,14 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
     }
 
     // APR 收益（僅在分期視圖中顯示）
-    if (viewMode === 'installment' && card.aprSavings !== undefined) {
-      features.push(
-        <div key="aprSavings" className="mb-2">
-          <div className="text-sm text-gray-600 dark:text-gray-400">APR 1.5% 收益</div>
-          <div className="font-semibold">NT$ {card.aprSavings.toLocaleString()}</div>
-        </div>
-      );
-    }
+    // if (viewMode === 'installment' && card.aprSavings !== undefined) {
+    //   features.push(
+    //     <div key="aprSavings" className="mb-2">
+    //       <div className="text-sm text-gray-600 dark:text-gray-400">APR 1.5% 收益</div>
+    //       <div className="font-semibold">NT$ {card.aprSavings.toLocaleString()}</div>
+    //     </div>
+    //   );
+    // }
 
     return features;
   };
@@ -216,6 +216,29 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
     }
     
     return null;
+  };
+
+  // Add URL parsing function
+  const parseTextWithUrls = (text) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = text.split(urlRegex);
+    
+    return parts.map((part, index) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-600 hover:text-indigo-800 break-words"
+          >
+            {part}
+          </a>
+        );
+      }
+      return part;
+    });
   };
 
   return (
@@ -253,15 +276,16 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
       
       {renderSplitAdvice()}
       
-      {(card.specialRequirements || card.notes) && (
-        <div className="mt-3 pt-3 border-t border-gray-200 text-sm text-gray-600">
-          <div className="font-medium">注意事項:</div>
-          <div>
-            {card.specialRequirements && <div>{card.specialRequirements}</div>}
-            {card.notes && <div>{card.notes}</div>}
+      <div className="mt-2 text-sm">
+        {card.specialRequirements && (
+          <div className="text-gray-600 mb-1">{card.specialRequirements}</div>
+        )}
+        {card.notes && (
+          <div className="text-gray-600 break-words whitespace-pre-wrap text-xs">
+            {parseTextWithUrls(card.notes)}
           </div>
-        </div>
-      )}
+        )}
+      </div>
       
       {card.requireRegistration && card.registrationLink && (
         <div className="mt-3">
