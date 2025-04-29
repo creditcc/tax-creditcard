@@ -37,11 +37,17 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
     // 如果卡片支援超商繳稅，以超商单筆上限计算回饋
     if (card.convenienceStore) {
       const convenienceAmount = Math.min(taxAmount, 30000);
-      return Math.min(card.cashbackLimit, convenienceAmount * card.cashbackRate);
+      return Math.round(Math.min(
+        card.cashbackLimit || Infinity,
+        convenienceAmount * card.cashbackRate
+      ));
     }
     
     // 一般信用卡回饋计算
-    return Math.min(card.cashbackLimit, taxAmount * card.cashbackRate);
+    return Math.round(Math.min(
+      card.cashbackLimit || Infinity,
+      taxAmount * card.cashbackRate
+    ));
   };
   
   const cashbackAmount = card.cashbackRate ? calculateCashback() : 0;
@@ -130,10 +136,10 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
 
     // 現金回饋
     if (card.cashbackRate !== undefined) {
-      const cashback = Math.min(
+      const cashback = Math.round(Math.min(
         taxAmount * card.cashbackRate,
         card.cashbackLimit || Infinity
-      );
+      ));
       features.push(
         <div key="cashback" className="mb-2">
           <div className="text-sm text-gray-600 dark:text-gray-400">預估回饋</div>
@@ -195,10 +201,10 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
       const maxAmount = Math.min(30000, 
         card.cashbackLimit ? card.cashbackLimit / card.cashbackRate : 30000
       );
-      const totalCashback = Math.min(
+      const totalCashback = Math.round(Math.min(
         maxAmount * card.cashbackRate,
         card.cashbackLimit || Infinity
-      );
+      ));
       
       return (
         <div className="mt-3 pt-3 border-t border-gray-200 text-sm text-gray-600 dark:text-gray-400">

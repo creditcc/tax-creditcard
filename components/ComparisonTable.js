@@ -71,10 +71,10 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
       
       // 计算实际可用金额和回馈
       const actualMaxAmount = Math.min(singleTransactionLimit, amount);
-      const estimatedCashback = Math.min(
+      const estimatedCashback = Math.round(Math.min(
         actualMaxAmount * convOption.cashbackRate,
         convOption.cashbackLimit
-      );
+      ));
       
       return {
         ...card,
@@ -101,10 +101,10 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
       const amountToUse = Math.min(card.singleTransactionLimit, remainingAmount);
       
       if (amountToUse > 0) {
-        const cashback = Math.min(
+        const cashback = Math.round(Math.min(
           amountToUse * card.bestOption.cashbackRate,
           card.bestOption.cashbackLimit
-        );
+        ));
         
         result.push({
           id: card.id,
@@ -155,7 +155,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
             interestRate: option.interestRate,
             minAmount: option.minAmount,
             aprSavings: aprSavings,
-            monthlySaving: calculateMonthlySaving(amount, { ...option, months }, annualRate)
+            monthlySaving: Math.round(calculateMonthlySaving(amount, { ...option, months }, annualRate))
           });
         });
       });
@@ -301,22 +301,25 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
 
   // 获取当前视图的卡片列表
   const getCurrentViewCards = () => {
-    // 每次调用时重新计算卡片列表
+    // 建立信用卡查找快取
+    const creditCardMap = new Map(creditCards.map(card => [card.name, card]));
+    
     switch (viewMode) {
       case 'convenience':
         if (!optimalCombination.length) return [];
         return optimalCombination
           .map(card => {
-            const creditCard = creditCards.find(c => c.name === card.name);
-            return {
+            const creditCard = creditCardMap.get(card.name);
+            return creditCard ? {
               ...creditCard,
               ...card,
               viewType: 'convenience',
               amountToUse: card.amountToUse,
               cashback: card.cashback,
               bestOption: card.bestOption
-            };
+            } : null;
           })
+          .filter(Boolean)
           .slice(0, 8);
 
       case 'installment':
@@ -324,8 +327,8 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
         return installmentSavings
           .slice(0, 8)
           .map(option => {
-            const creditCard = creditCards.find(c => c.name === option.cardName);
-            return {
+            const creditCard = creditCardMap.get(option.cardName);
+            return creditCard ? {
               ...creditCard,
               id: `${option.cardId}-${option.months}`,
               name: option.cardName,
@@ -334,10 +337,11 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
               minTaxAmount: option.minAmount,
               handlingFee: option.handlingFee,
               aprSavings: option.aprSavings,
-              monthlyPayment: taxAmount / option.months,
+              monthlyPayment: Math.round(taxAmount / option.months),
               viewType: 'installment'
-            };
-          });
+            } : null;
+          })
+          .filter(Boolean);
 
       case 'cashback':
         return creditCards
@@ -347,7 +351,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           )
           .map(card => ({
             ...card,
-            estimatedCashback: calculateActualCashback(card),
+            estimatedCashback: Math.round(calculateActualCashback(card)),
             viewType: 'cashback'
           }))
           .sort((a, b) => b.estimatedCashback - a.estimatedCashback)
@@ -356,25 +360,28 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
       case 'split':
         if (!splitStrategy) return [];
         const convenienceCards = splitStrategy.conveniencePortion.map(card => {
-          const creditCard = creditCards.find(c => c.name === card.name);
-          return {
+          const creditCard = creditCardMap.get(card.name);
+          return creditCard ? {
             ...creditCard,
             ...card,
             viewType: 'split_convenience'
-          };
-        });
+          } : null;
+        }).filter(Boolean);
         
         const remainingCards = splitStrategy.remainingStrategy?.type === 'installment' 
-          ? [{
-              ...creditCards.find(c => c.name === splitStrategy.remainingStrategy.bestOption.cardName),
-              id: 'remaining-installment',
-              name: splitStrategy.remainingStrategy.bestOption.cardName,
-              installmentAvailable: true,
-              installmentPeriods: splitStrategy.remainingStrategy.bestOption.months,
-              amount: splitStrategy.remainingStrategy.amount,
-              viewType: 'split_installment',
-              specialRequirements: splitStrategy.remainingStrategy.bestOption.specialRequirements
-            }]
+          ? (() => {
+              const card = creditCardMap.get(splitStrategy.remainingStrategy.bestOption.cardName);
+              return card ? [{
+                ...card,
+                id: 'remaining-installment',
+                name: splitStrategy.remainingStrategy.bestOption.cardName,
+                installmentAvailable: true,
+                installmentPeriods: splitStrategy.remainingStrategy.bestOption.months,
+                amount: splitStrategy.remainingStrategy.amount,
+                viewType: 'split_installment',
+                specialRequirements: splitStrategy.remainingStrategy.bestOption.specialRequirements
+              }] : [];
+            })()
           : [];
         
         return [...convenienceCards, ...remainingCards].slice(0, 8);
@@ -423,12 +430,12 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-3 text-left border">信用卡</th>
-              <th className="p-3 text-left border">額外條件</th>
-              <th className="p-3 text-left border">最低稅額</th>
-              <th className="p-3 text-left border">最高稅額</th>
-              <th className="p-3 text-left border">回饋率</th>
-              <th className="p-3 text-left border">可獲回饋</th>
+              <th className="p-3 text-left border whitespace-nowrap">信用卡</th>
+              <th className="p-3 text-left border whitespace-nowrap">額外條件</th>
+              <th className="p-3 text-left border whitespace-nowrap">最低稅額</th>
+              <th className="p-3 text-left border whitespace-nowrap">最高稅額</th>
+              <th className="p-3 text-left border whitespace-nowrap">回饋率</th>
+              <th className="p-3 text-left border whitespace-nowrap">可獲回饋</th>
             </tr>
           </thead>
           <tbody>
@@ -437,16 +444,15 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
               
               return (
                 <tr key={card.id} className={index === 0 ? "bg-yellow-50" : ""}>
-                  <td className="p-3 border">
+                  <td className="p-3 border whitespace-nowrap">
                     {index === 0 && <span className="inline-block bg-yellow-500 text-white text-xs px-2 py-1 rounded mr-2">推薦</span>}
                     {card.name}
                   </td>
-                  <td className="p-3 border"> {card.specialRequirements}</td>
-                  <td className="p-3 border">NT$ {card.minTaxAmount.toLocaleString()}</td>
-                  <td className="p-3 border">NT$ {card.maxTaxAmount.toLocaleString()}</td>
-                  <td className="p-3 border">{(card.cashbackRate * 100).toFixed(2)}%</td>
-                  <td className="p-3 border">NT$ {cashback.toLocaleString()}</td>
-                  
+                  <td className="p-3 border">{card.specialRequirements}</td>
+                  <td className="p-3 border whitespace-nowrap">NT$ {card.minTaxAmount.toLocaleString()}</td>
+                  <td className="p-3 border whitespace-nowrap">NT$ {card.maxTaxAmount.toLocaleString()}</td>
+                  <td className="p-3 border whitespace-nowrap">{(card.cashbackRate * 100).toFixed(2)}%</td>
+                  <td className="p-3 border whitespace-nowrap">NT$ {cashback.toLocaleString()}</td>
                 </tr>
               );
             })}
@@ -553,8 +559,11 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                   const monthlyPayment = taxAmount / option.months;
                   const totalFee = taxAmount * option.handlingFee;
                   
-                  // 查找对应的信用卡信息
-                  const card = creditCards.find(c => c.name === option.cardName);
+                  // 查找对应的分期选项信息
+                  const installmentOption = installmentOptions.find(opt => 
+                    opt.bank === option.cardName.split('信用卡')[0] && 
+                    opt.periods.includes(option.months)
+                  );
                   
                   return (
                     <tr key={`${option.cardId}-${option.months}`} className={index === 0 ? "bg-orange-50" : ""}>
@@ -569,7 +578,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                         NT$ {option.aprSavings.toLocaleString()}
                       </td>
                       <td className="p-2 md:p-3 border">
-                        {card?.specialRequirements || ''}
+                        {installmentOption?.specialRequirements || '無特殊要求'}
                       </td>
                     </tr>
                   );
@@ -720,7 +729,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                     </p>
                     <p>每月還款: NT$ {(splitStrategy.remainingStrategy.amount / splitStrategy.remainingStrategy.bestOption.months).toLocaleString(undefined, {maximumFractionDigits: 0})}</p>
                     <p className="text-orange-600">
-                      APR 1.5% 收益: NT$ {Math.round(aprSavings).toLocaleString()}
+                      活存收益: NT$ {Math.round(aprSavings).toLocaleString()}
                       <span 
                         className="ml-1 inline-block text-gray-500 cursor-help rounded-full border border-gray-400 w-3 h-3 text-xs text-center"
                         title="以活存年利率：1.5% 計算，此計算僅為存款端的利息「收益」，並未考慮政府對所得稅分期付款本身是否可能收取額外費用或利息"

@@ -1029,6 +1029,7 @@ export const installmentOptions = [
     interestRate: 0,
     handlingFee: 0,
     minAmount: 30000,
+    maxAmount: 5000000,
     specialRequirements: "適用金額3萬~500萬"
   },
   {
