@@ -111,7 +111,7 @@ const CardResults = ({ cards, taxAmount, strategy }) => {
 
   return (
     <div className="mb-10">
-      <h2 className="text-2xl font-bold mb-2 text-gray-800 dark:text-white">{getRecommendationTitle()}</h2>
+      <h2 className="text-2xl font-bold mb-2 text-gray-800">{getRecommendationTitle()}</h2>
       
       {getStrategyTip()}
       
