@@ -134,6 +134,8 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
     
     // 创建所有可用的分期选项列表
     const allOptions = [];
+    let optionId = 1; // 用于生成唯一的选项ID
+    
     eligibleCards.forEach(card => {
       const cardInstOptions = installmentOptions.filter(opt => 
         opt.bank === card.bank && opt.minAmount <= amount
@@ -147,14 +149,20 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
           // 计算递减余额所产生的总利息 (等额本金)
           const aprSavings = Math.round((monthlyRate * amount * (months + 1)) / 2);
           
+          // 生成唯一的选项ID
+          const uniqueOptionId = `${optionId++}`;
+          
           allOptions.push({
+            id: uniqueOptionId, // 使用唯一的ID
             cardId: card.id,
             cardName: card.name,
+            bank: card.bank,
             months: months,
             handlingFee: option.handlingFee,
             interestRate: option.interestRate,
             minAmount: option.minAmount,
             aprSavings: aprSavings,
+            specialRequirements: option.specialRequirements,
             monthlySaving: Math.round(calculateMonthlySaving(amount, { ...option, months }, annualRate))
           });
         });
@@ -559,17 +567,18 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                   const monthlyPayment = taxAmount / option.months;
                   const totalFee = taxAmount * option.handlingFee;
                   
-                  // 查找对应的分期选项信息
-                  const installmentOption = installmentOptions.find(opt => 
-                    opt.bank === option.cardName.split('信用卡')[0] && 
-                    opt.periods.includes(option.months)
+                  // 查找对应的信用卡信息，获取 specialRequirements
+                  const creditCard = creditCards.find(card => 
+                    card.id === option.cardId
                   );
                   
+                  // 使用 cardId、months 和 bank 的組合來生成唯一 key
+                  const uniqueKey = `${option.cardId}-${option.months}-${option.bank}`;
                   return (
-                    <tr key={`${option.cardId}-${option.months}`} className={index === 0 ? "bg-orange-50" : ""}>
+                    <tr key={option.id} className={index === 0 ? "bg-orange-50" : ""}>
                       <td className="p-2 md:p-3 border whitespace-nowrap">
                         {index === 0 && <span className="inline-block bg-orange-500 text-white text-xs px-2 py-1 rounded mr-2">推薦</span>}
-                        {option.cardName}
+                        {option.cardName}{creditCard?.specialRequirements ? ` (${creditCard.specialRequirements})` : ''}
                       </td>
                       <td className="p-2 md:p-3 border whitespace-nowrap">{option.months}期</td>
                       <td className="p-2 md:p-3 border whitespace-nowrap">NT$ {monthlyPayment.toLocaleString(undefined, {maximumFractionDigits: 0})}</td>
@@ -578,7 +587,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                         NT$ {option.aprSavings.toLocaleString()}
                       </td>
                       <td className="p-2 md:p-3 border">
-                        {installmentOption?.specialRequirements || '無特殊要求'}
+                        {option.specialRequirements || '無特殊要求'}
                       </td>
                     </tr>
                   );
@@ -910,8 +919,7 @@ const ComparisonTable = ({ taxAmount = 0 }) => {
                 {(() => {
                   const eligibleCards = creditCards.filter(card => 
                     card.cashbackRate > 0 &&
-                    (card.minTaxAmount === undefined || card.minTaxAmount <= taxAmount) &&
-                    (card.maxTaxAmount === undefined || card.maxTaxAmount >= taxAmount)
+                    (card.minTaxAmount === undefined || card.minTaxAmount <= taxAmount)
                   ).sort((a, b) => {
                     const aCashback = Math.min(
                       taxAmount * a.cashbackRate,

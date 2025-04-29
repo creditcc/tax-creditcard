@@ -15,7 +15,8 @@ export const creditCards = [
     notes: "需登錄活動 (2025/5/6-7/3)，透過Paytax/電話繳納，12期零利率，排除臨調/超額/預繳",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 2,
@@ -31,7 +32,8 @@ export const creditCards = [
     notes: "卓越理財貴賓享9期零利率，需透過Paytax/電話繳納",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 3,
@@ -47,7 +49,8 @@ export const creditCards = [
     notes: "需登錄活動 (2025/4/28-7/5)，透過Paytax/電話繳納，6期零利率，超商/行動支付/臨櫃不適用",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 4,
@@ -63,7 +66,8 @@ export const creditCards = [
     notes: "需每月領券 (Richart Life App)，適用7-11/全家，可用實體卡/Apple Pay/Google Pay/Samsung Pay/台新Pay/全盈Pay，回饋期限至2025/5/31",
     installmentAvailable: false,
     convenienceStore: true,
-    mobilePay: true
+    mobilePay: true,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 6,
@@ -79,7 +83,8 @@ export const creditCards = [
     notes: "需登錄活動 (需於2025/7/3前)，透過Paytax/玉山Wallet繳納，6期零利率，悠遊付不適用，回饋與分期二選一",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 7,
@@ -95,7 +100,8 @@ export const creditCards = [
     notes: "需登錄活動 (2025/5/1-7/3)，透過Paytax/電話繳納，6期零利率，公務機關平台不適用，回饋與分期二選一",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 8,
@@ -111,7 +117,8 @@ export const creditCards = [
     notes: "需登錄活動，透過Paytax/電話繳納，6期零利率，回饋與分期二選一",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 9,
@@ -127,7 +134,8 @@ export const creditCards = [
     notes: "可能限員工申請，需使用icash 2.0自動加值在7-11繳稅，回饋為OPEN Point，回饋期限至2025/12/31",
     installmentAvailable: false,
     convenienceStore: true,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 10,
@@ -143,7 +151,8 @@ export const creditCards = [
     notes: "主要針對房屋稅，所得稅適用性待確認，需在7-11使用OPEN錢包支付，回饋期限至2025/6/30",
     installmentAvailable: true,
     convenienceStore: true,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 11,
@@ -159,7 +168,8 @@ export const creditCards = [
     notes: "需登錄，每季限3,500名，需在全家使用FamiPay支付，需季消費滿5000元，回饋為等值禮券，回饋期限至2025/6/30",
     installmentAvailable: true,
     convenienceStore: true,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 12,
@@ -175,7 +185,8 @@ export const creditCards = [
     notes: "可享3/6/9期零利率，無最低門檻限制",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: true
+    mobilePay: true,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 13,
@@ -191,7 +202,8 @@ export const creditCards = [
     notes: "可享3/6/12期零利率，適用金額3萬~500萬",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 14,
@@ -207,7 +219,8 @@ export const creditCards = [
     notes: "可享3/6期零利率(稅額6千起)，及12期零利率(稅額6萬起)",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 15,
@@ -223,7 +236,8 @@ export const creditCards = [
     notes: "領航會員或2025年信用卡新戶可享6/12期零利率，領航會員需300萬資產",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: true
+    mobilePay: true,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 16,
@@ -239,7 +253,8 @@ export const creditCards = [
     notes: "可享3/6期零利率，透過台灣Pay可享9期零利率，最低門檻3000元",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: true
+    mobilePay: true,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 17,
@@ -255,7 +270,8 @@ export const creditCards = [
     notes: "永傳/永富世界卡可享6期零利率，財富管理客戶可享額外優惠",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 18,
@@ -271,7 +287,8 @@ export const creditCards = [
     notes: "可享3/6期零利率，需透過台灣Pay支付，最低門檻3000元",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: true
+    mobilePay: true,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 19,
@@ -287,7 +304,8 @@ export const creditCards = [
     notes: "可享3/6期零利率，回饋為邀請制，最低門檻3000元",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 20,
@@ -303,7 +321,8 @@ export const creditCards = [
     notes: "可享3/6期零利率，最低門檻3000元",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 21,
@@ -319,7 +338,8 @@ export const creditCards = [
     notes: "可享3期零利率，可透過台灣Pay支付，無金額限制",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: true
+    mobilePay: true,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 22,
@@ -335,7 +355,8 @@ export const creditCards = [
     notes: "可享3期零利率，可透過台灣Pay支付，最低門檻3000元",
     installmentAvailable: true,
     convenienceStore: false,
-    mobilePay: true
+    mobilePay: true,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 23,
@@ -351,7 +372,8 @@ export const creditCards = [
     notes: "回饋為哩程 (18元/哩，表格估計約 2.2%)。御璽卡年費3000元，回饋上限2500元哩程(需繳稅約4.5萬)；無限卡年費15000元，回饋上限5500元哩程(需繳稅約9.9萬)。回饋與分期不可共用。活動連結: https://www.card.rakuten.com.tw/corp/campaign/cpn.xhtml?code=2249",
     installmentAvailable: true, // Assuming installments available, but not combinable with miles
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 24,
@@ -367,7 +389,8 @@ export const creditCards = [
     notes: "0.5%現金回饋，上限500元(需繳稅10萬)，與房屋稅共用額度。需登錄(無名額)。後續6-8月消費再享5%回饋(條件詳見活動)。回饋與分期不可共用。活動連結: https://www.scsb.com.tw/content/card/news_1140401TAX.html",
     installmentAvailable: true, // From initial data (ID 13), but not combinable with cashback
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 25,
@@ -383,7 +406,8 @@ export const creditCards = [
     notes: "吉鶴卡享0.2%現金回饋無上限。需登錄(活動總名額1.5萬名)。回饋與分期不可共用。後續7-8月消費另有回饋(詳見活動)。活動連結: https://activity.ubot.com.tw/aws_act/2025/2025incometax/index.htm",
     installmentAvailable: true, // From initial data (ID 14), but not combinable with cashback
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 26,
@@ -399,7 +423,8 @@ export const creditCards = [
     notes: "需為新開立NNB數位帳戶者，享額外加碼0.3%現金回饋，上限5000元(需繳稅約166.7萬)。限1萬名。需登錄(活動總名額1.5萬名)。回饋與分期不可共用。後續7-8月消費另有回饋(詳見活動)。活動連結: https://activity.ubot.com.tw/aws_act/2025/2025incometax/index.htm",
     installmentAvailable: true, // From initial data (ID 14), but not combinable with cashback
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 27,
@@ -415,7 +440,8 @@ export const creditCards = [
     notes: "回饋為星宇航空哩程 (200元/哩，表格估計約0.25%)。回饋上限10萬哩(需繳稅2000萬)。回饋與分期不可共用。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
     installmentAvailable: true, // From initial data (ID 6), but not combinable with miles
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 28,
@@ -431,7 +457,8 @@ export const creditCards = [
     notes: "限豐盛理財會員(資產需達300萬)。享0.38%現金回饋，上限1.8萬元(需繳稅約473萬)。回饋與分期可共用。活動詳情需洽星展。新聞來源: https://www.ctee.com.tw/news/20250421701612-430301",
     installmentAvailable: true, // Yes, and combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: true // 明確說明可共用
   },
   {
     id: 29,
@@ -447,7 +474,8 @@ export const creditCards = [
     notes: "限豐盛私人客戶(資產需達3000萬)。享0.68%現金回饋，上限12.5萬元(需繳稅約1838萬)。回饋與分期可共用。活動詳情需洽星展。新聞來源: https://www.ctee.com.tw/news/20250421701612-430301",
     installmentAvailable: true, // Yes, and combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: true // 明確說明可共用
   },
   {
     id: 30,
@@ -463,7 +491,8 @@ export const creditCards = [
     notes: "一般卡(或無特別會員身分)享0.2%現金回饋，無上限。回饋與分期不可共用。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
     installmentAvailable: true, // From initial data (ID 6), but not combinable with cashback
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 31,
@@ -479,7 +508,8 @@ export const creditCards = [
     notes: "登峰/菁英理財會員(資產需達100萬/300萬)享0.35%回饋(點數)，上限10萬點(需繳稅約2857萬)。回饋與分期不可共用。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
     installmentAvailable: true, // From initial data (ID 6), but not combinable with cashback
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 32,
@@ -495,7 +525,8 @@ export const creditCards = [
     notes: "私銀會員享0.4%回饋(點數)，上限15萬點(需繳稅3750萬)。回饋與分期不可共用。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
     installmentAvailable: true, // From initial data (ID 6), but not combinable with cashback
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 33,
@@ -511,7 +542,8 @@ export const creditCards = [
     notes: "永傳世界卡享0.38%現金回饋，上限20萬元(需繳稅約5263萬)。需登錄(無名額限制)。回饋可與6期零利率分期共用。活動連結: https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
     installmentAvailable: true, // Yes, and 6-期 combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: true // 明確說明可共用
   },
   {
     id: 34,
@@ -527,7 +559,8 @@ export const creditCards = [
     notes: "邀請制。繳稅額滿30萬(含)以上享0.3%現金回饋。回饋上限推測為5000元(需繳稅約167萬，上限資訊待確認)。回饋與分期可共用。活動連結: https://www.cathaybk.com.tw/cathaybk/personal/campaigns/ebanking/2025hightax/",
     installmentAvailable: true, // Yes, and combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: true // 明確說明可共用
   },
   {
     id: 35,
@@ -543,7 +576,8 @@ export const creditCards = [
     notes: "邀請制。繳稅額滿100萬(含)以上享0.35%現金回饋。回饋上限5000元(需繳稅約142萬)。回饋與分期可共用。活動連結: https://www.cathaybk.com.tw/cathaybk/personal/campaigns/ebanking/2025hightax/",
     installmentAvailable: true, // Yes, and combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: true // 明確說明可共用
   },
   {
     id: 36,
@@ -559,7 +593,8 @@ export const creditCards = [
     notes: "限富邦J卡。享0.2%現金回饋，上限2000元(需繳稅100萬)。回饋與分期共用狀態未明。活動連結: https://cardpromote.taipeifubon.com.tw/promotion/Detail?sn=E000042",
     installmentAvailable: true, // From initial data (ID 23/24), combinability unknown
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 37,
@@ -575,7 +610,8 @@ export const creditCards = [
     notes: "限本行存戶且繳稅額滿30萬。享0.36%現金回饋，上限8萬元(需繳稅約2222萬)。回饋與分期共用狀態未明。活動連結: https://cardpromote.taipeifubon.com.tw/promotion/Detail?sn=E000042",
     installmentAvailable: true, // From initial data (ID 23/24), combinability unknown
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 38,
@@ -591,7 +627,8 @@ export const creditCards = [
     notes: "限領航會員-夢享家。享0.2%現金回饋，上限2000元(需繳稅100萬)。回饋與分期不可共用。活動連結: https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
     installmentAvailable: true, // From initial data (ID 15), but not combinable
     convenienceStore: false,
-    mobilePay: true // From initial data (ID 15)
+    mobilePay: true,
+    rebateWithInstallments: false // 明確說明不可共用 // From initial data (ID 15)
   },
   {
     id: 39,
@@ -607,7 +644,8 @@ export const creditCards = [
     notes: "限領航會員-理享家。享0.25%現金回饋，上限3萬元(需繳稅1200萬)。回饋與分期不可共用。活動連結: https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
     installmentAvailable: true, // From initial data (ID 15), but not combinable
     convenienceStore: false,
-    mobilePay: true // From initial data (ID 15)
+    mobilePay: true,
+    rebateWithInstallments: false // 明確說明不可共用 // From initial data (ID 15)
   },
   {
     id: 40,
@@ -623,7 +661,8 @@ export const creditCards = [
     notes: "限領航會員-獨享家。享0.3%現金回饋，上限5萬元(需繳稅約1667萬)。回饋與分期不可共用。活動連結: https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
     installmentAvailable: true, // From initial data (ID 15), but not combinable
     convenienceStore: false,
-    mobilePay: true // From initial data (ID 15)
+    mobilePay: true,
+    rebateWithInstallments: false // 明確說明不可共用 // From initial data (ID 15)
   },
   {
     id: 41,
@@ -639,7 +678,8 @@ export const creditCards = [
     notes: "限領航會員-睿享家。享0.35%現金回饋，上限10萬元(需繳稅約2857萬)。回饋與分期不可共用。活動連結: https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
     installmentAvailable: true, // From initial data (ID 15), but not combinable
     convenienceStore: false,
-    mobilePay: true // From initial data (ID 15)
+    mobilePay: true,
+    rebateWithInstallments: false // 明確說明不可共用 // From initial data (ID 15)
   },
   {
     id: 42,
@@ -655,7 +695,8 @@ export const creditCards = [
     notes: "限一般卡。享0.18%現金回饋。回饋上限可能為3萬元(需繳稅約1667萬，上限資訊待確認)。活動總限1萬名。回饋與分期不可共用。活動連結: https://www.tcb-bank.com.tw/personal-banking/credit-card/discount/event/income_tax_12",
     installmentAvailable: true, // From initial data (ID 18), but not combinable
     convenienceStore: false,
-    mobilePay: true // From initial data (ID 18), esp. if using 台灣Pay
+    mobilePay: true,
+    rebateWithInstallments: false // 明確說明不可共用 // From initial data (ID 18), esp. if using 台灣Pay
   },
   {
     id: 43,
@@ -671,7 +712,8 @@ export const creditCards = [
     notes: "限中台卡/國防卡。享0.25%現金回饋。回饋上限可能為3萬元(需繳稅1200萬，上限資訊待確認)。活動總限1萬名。回饋與分期不可共用。活動連結: https://www.tcb-bank.com.tw/personal-banking/credit-card/discount/event/income_tax_12",
     installmentAvailable: true, // From initial data (ID 18), but not combinable
     convenienceStore: false,
-    mobilePay: true // From initial data (ID 18)
+    mobilePay: true,
+    rebateWithInstallments: false // 明確說明不可共用 // From initial data (ID 18)
   },
   {
     id: 44,
@@ -687,7 +729,8 @@ export const creditCards = [
     notes: "限頂級卡。享0.36%現金回饋，上限10萬元(需繳稅約2778萬)。活動總限1萬名。回饋與分期不可共用。活動連結: https://www.tcb-bank.com.tw/personal-banking/credit-card/discount/event/income_tax_12",
     installmentAvailable: true, // From initial data (ID 18), but not combinable
     convenienceStore: false,
-    mobilePay: true // From initial data (ID 18)
+    mobilePay: true,
+    rebateWithInstallments: false // 未明確說明可共用 // From initial data (ID 18)
   },
   {
     id: 45,
@@ -703,7 +746,8 @@ export const creditCards = [
     notes: "限永聚會員。享0.15%現金回饋，上限5千元(需繳稅約333萬)。限2000名。回饋與分期共用條件不明(圖示為橘色驚嘆號)。活動連結: https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
     installmentAvailable: true, // From initial data (ID 18 - 永聚3期), combinability unclear for cashback
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 46,
@@ -719,7 +763,8 @@ export const creditCards = [
     notes: "限永富會員。享0.25%現金回饋，上限5萬元(需繳稅2000萬)。限1200名。回饋與分期共用條件不明(圖示為橘色驚嘆號)。活動連結: https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
     installmentAvailable: true, // From initial data (ID 17 - 永富6期), combinability unclear for cashback
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 47,
@@ -735,7 +780,8 @@ export const creditCards = [
     notes: "限永傳會員。享0.38%現金回饋，上限20萬元(需繳稅約5263萬)。限800名。僅永傳會員的回饋可與分期共用。活動連結: https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
     installmentAvailable: true, // Yes, and combinable (as per orange icon note)
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: true // 明確說明可共用
   },
   {
     id: 48,
@@ -751,7 +797,8 @@ export const creditCards = [
     notes: "一般卡享0.1%現金回饋，無上限。回饋與分期不可共用。(此處與上方0.2%一般卡資訊來源相同但回饋率不同，請確認活動細節)。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
     installmentAvailable: true, // From initial data (ID 6), but not combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 49,
@@ -767,7 +814,8 @@ export const creditCards = [
     notes: "限 U Bear卡/Pi拍錢包卡等 (原Unicard類別)。享0.2%現金回饋，無上限。回饋與分期不可共用。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
     installmentAvailable: true, // From initial data (ID 6), but not combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 50,
@@ -783,7 +831,8 @@ export const creditCards = [
     notes: "繳稅額達100萬享0.3%回饋(點數)，上限10萬點(需繳稅約3333萬)。回饋與分期不可共用。(此條件與理財會員等級回饋相似，請確認活動細節)。活動連結: https://event.esunbank.com.tw/credit/tax/index.html",
     installmentAvailable: true, // From initial data (ID 6), but not combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 51,
@@ -799,7 +848,8 @@ export const creditCards = [
     notes: "永富世界卡享0.25%現金回饋，上限5萬元(需繳稅2000萬)。需登錄(無名額限制)。回饋與分期不可共用。(此條目與永富會員回饋相似)。活動連結: https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
     installmentAvailable: true, // From initial data (ID 17), but not combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 52,
@@ -815,7 +865,8 @@ export const creditCards = [
     notes: "需3個月內消費滿10萬。繳稅5~50萬贈5000點(=250元, Max 0.5%); 50~100萬贈1萬點(=500元, Max 0.1%); 100萬以上贈5萬點(=2500元, Max 0.25%)。回饋上限為2500元。回饋與分期不可共用。活動連結: https://www.hncb.com.tw/wps/portal/HNCB/card/event/TAXCARD",
     installmentAvailable: true, // From initial data (ID 15), but not combinable
     convenienceStore: false,
-    mobilePay: true // From initial data (ID 15)
+    mobilePay: true,
+    rebateWithInstallments: false // 明確說明不可共用 // From initial data (ID 15)
   },
   {
     id: 53,
@@ -831,7 +882,8 @@ export const creditCards = [
     notes: "繳稅額10萬以上享0.2%現金回饋，上限2000元(需繳稅100萬)。回饋與分期共用狀態未明。活動連結: https://card.firstbank.com.tw/sites/card/zh_TW/1565707087044",
     installmentAvailable: true, // From initial data (ID 7), combinability unknown
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 未明確說明可共用
   },
   {
     id: 54,
@@ -847,7 +899,8 @@ export const creditCards = [
     notes: "和泰聯名卡享0.2%和泰Points回饋，無上限。回饋與分期不可共用。活動連結: https://mkt.ctbcbank.com/recent/202507/N2025041400015_01-7/index.html",
     installmentAvailable: true, // From initial data (ID 8), but not combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 55,
@@ -863,7 +916,8 @@ export const creditCards = [
     notes: "回饋為華航哩程 (300元/哩，表格估計約0.17%)，無上限。稅額達1000萬有額外哩程。回饋與分期不可共用。",
     installmentAvailable: true, // From initial data (ID 8), but not combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 56,
@@ -879,7 +933,8 @@ export const creditCards = [
     notes: "幣倍卡享0.15%現金回饋，上限1000元(需繳稅約66.7萬)。需登錄(限1萬名)。回饋與分期不可共用。",
     installmentAvailable: true, // From initial data (ID 17), but not combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 57,
@@ -895,7 +950,8 @@ export const creditCards = [
     notes: "限2024年未用永豐信用卡繳稅者，且稅額10萬以上。享0.15%現金回饋，上限500元(需繳稅約33.3萬)。需登錄(限4000名)。回饋與分期不可共用。活動連結: https://bank.sinopac.com/sinopacBT/personal/credit-card/discount/831654557.html",
     installmentAvailable: true, // From initial data (ID 17), but not combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 58,
@@ -911,7 +967,8 @@ export const creditCards = [
     notes: "LINE Pay信用卡/簽帳金融卡享0.1% LINE Points回饋，無上限。回饋與分期不可共用。活動連結: https://mkt.ctbcbank.com/recent/202507/N2025041400015_01-7/index.html",
     installmentAvailable: true, // From initial data (ID 8), but not combinable
     convenienceStore: false,
-    mobilePay: false // Direct card usage, LINE Pay app payment might differ
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用 // Direct card usage, LINE Pay app payment might differ
   },
   {
     id: 59,
@@ -927,7 +984,8 @@ export const creditCards = [
     notes: "商旅鈦金卡享0.1%現金回饋，無上限。回饋與分期不可共用。活動連結: https://mkt.ctbcbank.com/recent/202507/N2025041400015_01-7/index.html",
     installmentAvailable: true, // From initial data (ID 8), but not combinable
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
   {
     id: 60,
@@ -943,7 +1001,8 @@ export const creditCards = [
     notes: "早鳥享0.1%現金回饋，上限1200元(需繳稅120萬)。限2000名。回饋與分期不可共用。活動連結: https://www.bankchb.com/frontend/bonusDetail.jsp?id=3163",
     installmentAvailable: true, // From initial data (ID 22), but not combinable
     convenienceStore: false,
-    mobilePay: true // From initial data (ID 22)
+    mobilePay: true,
+    rebateWithInstallments: false // 明確說明不可共用 // From initial data (ID 22)
   },
   {
     id: 61,
@@ -959,7 +1018,8 @@ export const creditCards = [
     notes: "VIP客戶享0.2%現金回饋，上限3萬元(需繳稅1500萬)。限1000名。回饋與分期不可共用。活動連結: https://www.bankchb.com/frontend/bonusDetail.jsp?id=3163",
     installmentAvailable: true, // From initial data (ID 22), but not combinable
     convenienceStore: false,
-    mobilePay: true // From initial data (ID 22)
+    mobilePay: true,
+    rebateWithInstallments: false // 明確說明不可共用 // From initial data (ID 22)
   },
   {
     id: 23,
@@ -975,7 +1035,8 @@ export const creditCards = [
     notes: "回饋為哩程 (18元/哩，表格估計約 2.2%)。御璽卡年費3000元，回饋上限2500元哩程(需繳稅約4.5萬)；無限卡年費15000元，回饋上限5500元哩程(需繳稅約9.9萬)。回饋與分期不可共用。活動連結: https://www.card.rakuten.com.tw/corp/campaign/cpn.xhtml?code=2249",
     installmentAvailable: true, // Assuming installments available, but not combinable with miles
     convenienceStore: false,
-    mobilePay: false
+    mobilePay: false,
+    rebateWithInstallments: false // 明確說明不可共用
   },
 ];
 

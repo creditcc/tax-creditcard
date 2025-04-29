@@ -295,7 +295,7 @@ const CreditCard = ({ card, taxAmount, isHighlighted, viewMode }) => {
             rel="noopener noreferrer"
             className="inline-block text-sm text-indigo-600 hover:text-indigo-800"
           >
-            前往登錄活動 →
+            前往官網 →
           </a>
         </div>
       )}

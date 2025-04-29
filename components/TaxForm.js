@@ -51,13 +51,13 @@ const TaxForm = ({ onSubmit, initialAmount = 0 }) => {
         
         <div className="mb-6">
           <p className="text-sm text-gray-600 mb-2">快速選擇:</p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-3" data-component-name="TaxForm">
             {presetAmounts.map(amount => (
               <button
                 key={amount}
                 type="button"
                 onClick={() => setTaxAmount(amount)}
-                className="text-xs py-1 px-2 bg-gray-100 hover:bg-gray-200 rounded-md"
+                className="text-sm py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded-lg min-w-[100px]"
               >
                 NT$ {amount.toLocaleString()}
               </button>
